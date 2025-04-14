@@ -1,0 +1,21 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Serve all .js files with the correct MIME type.
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Content-Type = "text/javascript"
+
+# Serve all .jsx files with the correct MIME type.
+[[headers]]
+  for = "/*.jsx"
+  [headers.values]
+    Content-Type = "text/javascript"
+
+# For single-page applications, redirect all paths to index.html.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
