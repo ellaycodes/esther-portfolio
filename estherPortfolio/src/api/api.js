@@ -3,10 +3,17 @@ import { getEnvVars } from "./envCache";
 
 const baseURL = "https://cdn.contentful.com";
 
-let id = await getEnvVars();
+let id = null;
 
-export const getAllEntries = () => {
-  return axios.get(`${baseURL}/spaces/${id.spaceId}/environments/${id.environmentId}/entries?access_token=${id.accessToken}`);
+async function tokens() {
+  id = await getEnvVars();
+}
+
+export const getAllEntries = async () => {
+  await tokens();
+  return axios.get(
+    `${baseURL}/spaces/${id.spaceId}/environments/${id.environmentId}/entries?access_token=${id.accessToken}`
+  );
 };
 
 // console.log(await getAllEntries((res) => res.data.items[0]));
