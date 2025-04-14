@@ -1,12 +1,12 @@
 import axios from "axios";
-import { getEnvVars } from "./envCache";
+import { loadEnvVars } from "./envLoader";
 
 const baseURL = "https://cdn.contentful.com";
 
 let id = null;
 
 async function tokens() {
-  id = await getEnvVars();
+  id = await loadEnvVars();
 }
 
 export const getAllEntries = async () => {
