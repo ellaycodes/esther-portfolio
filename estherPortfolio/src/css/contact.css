@@ -1,0 +1,57 @@
+
+.contactPage {
+    background-color: rgb(155, 72, 25);
+    color: white;
+    height: 80vh;
+    max-height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: flex-start;
+    padding: 10vh;
+}
+
+.contactTitle {
+    font-family: 'Radley', serif;
+    font-size: 4rem;
+    border-bottom: 2px solid #bd8f53;
+    margin-bottom: 0;
+    padding-bottom: 0.4em;
+    width: 70%;
+    text-align: start;
+}
+
+.contactSubtitle {
+    font-family: 'Carlito', sans-serif;
+    font-size: 1.5rem;
+    color: white;
+    text-transform: uppercase;
+}
+
+.iconLabel {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.icon {
+    width: 3.5rem;
+    height: 3.5rem;
+}
+
+.labelGroup {
+    text-align: start;
+}
+
+.labelGroup .title {
+    text-transform: uppercase;
+}
+
+.labelGroup .label {
+    font-family: 'radley', serif;
+}
+
+.labelGroup p {
+    margin: 0;
+}

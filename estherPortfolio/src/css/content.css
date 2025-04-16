@@ -1,0 +1,84 @@
+.contentSection {
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1rem;
+  gap: 5rem;
+}
+
+.contentSectionHeader h1 {
+  font-family: "Radley", serif;
+  font-size: 5rem;
+  margin-bottom: 0.5rem;
+}
+.contentSectionHeader p {
+  font-family: "Radley", serif;
+  font-style: italic;
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: normal;
+  gap: 1.5rem;
+  padding: 2rem 1rem;
+}
+
+.contentCard {
+  width: 25vw;
+}
+
+.infoCard {
+  width: 35vw;
+}
+
+.contentCard .logo {
+  width: 100px;
+}
+
+.contentCard .cover {
+  width: 100%;
+  height: 60%;
+  object-fit: cover;
+  border: 3px solid black;
+}
+
+.contentCard .contentCardTitle {
+  color: black;
+  font-size: 1.5rem;
+  font-family: "Radley", serif;
+  border-bottom: 2px solid #bd8f53;
+  margin-bottom: 0;
+  padding-bottom: 0.8em;
+}
+
+.contentCardInfo {
+  text-align: left;
+  font-family: "Carlito", sans-serif;
+  font-weight: normal;
+  color: black;
+  column-count: auto;
+  font-size: 0.8rem;
+}
+
+.contentCardInfo .multi-column {
+  column-count: 2;
+  column-fill: balance;
+}
+
+.firstLine {
+  font-size: 1.2rem;
+  color: black;
+  margin-top: 0.5rem;
+  font-family: "Carlito", sans-serif;
+  font-weight: 800;
+}
+
+.nextLine {
+  font-family: "Carlito", sans-serif;
+  color: black;
+  font-weight: 400;
+}

@@ -16,9 +16,9 @@ function About({ content }) {
     <div className="aboutSection">
       <div className="aboutSectionText">
         <h1>{content.fields.title}</h1>
-        <p>
+        <div>
           <ReactMarkdown>{content.fields.aboutMeText}</ReactMarkdown>
-        </p>
+        </div>
       </div>
       <div className="profile">
         <img src={imageUrl} alt="Image of Esther Yekini" />
