@@ -9,6 +9,8 @@
     justify-content: end;
     align-items: flex-start;
     padding: 10vh;
+    width: 100%;
+    max-width: 1280px;
 }
 
 .contactTitle {
@@ -23,9 +25,16 @@
 
 .contactSubtitle {
     font-family: 'Carlito', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1rem;
     color: white;
     text-transform: uppercase;
+}
+
+.contactInfo {
+    display: flex;
+    width: 100%;
+    gap: 2rem;
+    margin-top: 3rem;
 }
 
 .iconLabel {
@@ -33,6 +42,35 @@
     align-items: center;
     gap: 1rem;
     margin-bottom: 2rem;
+    color: white;
+    border-radius: 5px;
+    padding: 0.5rem 0 0.5rem 1rem;
+    background-color: rgba(185, 118, 80, 0.5);
+    width: 20%
+}
+
+.iconLabel:hover {
+    background-color: rgba(185, 118, 80, 0.5);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(185, 118, 80, 0.5);
+    text-align: start;
+    font-family: 'Carlito', sans-serif;
+    font-size: 1.5rem;
+}
+
+.iconLabel:hover .icon {
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    transform: scale(1.05);
+}
+
+.iconLabel:active {
+    transform: scale(0.95);
 }
 
 .icon {

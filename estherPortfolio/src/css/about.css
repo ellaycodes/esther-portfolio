@@ -5,6 +5,8 @@
   max-height: 800px;
   align-items: center;
   padding-bottom: 10vh;
+  width: 100%;
+  max-width: 1280px;
 }
 
 .aboutSectionText {

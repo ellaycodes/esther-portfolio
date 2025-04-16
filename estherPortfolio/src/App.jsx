@@ -43,25 +43,30 @@ function App() {
 
   return (
     <div>
-      <NavBar onNavClick={scrollToSection} />
+      <div className="mainDiv">
+        <NavBar onNavClick={scrollToSection} />
+      </div>
       {contentData.landingPage && (
-        <div ref={homeRef}>
-          <HomeSection content={contentData.landingPage[0]} onCtaClick={scrollToSection} />
+        <div className="mainDiv" ref={homeRef}>
+          <HomeSection
+            content={contentData.landingPage[0]}
+            onCtaClick={scrollToSection}
+          />
         </div>
       )}
       {contentData.aboutPage && (
-        <div ref={aboutRef}>
+        <div className="mainDiv" ref={aboutRef}>
           <About content={contentData.aboutPage[0]} />
         </div>
       )}
       {contentData.contentPage &&
         contentData.contentPage.map((item) => (
-          <div ref={projectsRef} key={item.sys.id}>
+          <div className="mainDiv" ref={projectsRef} key={item.sys.id}>
             <ContentSection content={item} />
           </div>
         ))}
       {contentData.contactPage && (
-        <div ref={contactRef}>
+        <div className="mainDiv" id="contactSection" ref={contactRef}>
           <ContactPage content={contentData.contactPage[0]} />
         </div>
       )}

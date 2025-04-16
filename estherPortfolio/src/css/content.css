@@ -4,6 +4,8 @@
   flex-direction: column;
   padding: 2rem 1rem;
   gap: 5rem;
+  width: 100%;
+  max-width: 1280px;
 }
 
 .contentSectionHeader h1 {
@@ -33,6 +35,8 @@
 
 .infoCard {
   width: 35vw;
+  max-width: 550px;
+  min-height: 50vh;
 }
 
 .contentCard .logo {

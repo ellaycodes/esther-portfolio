@@ -20,15 +20,39 @@ function IconLabel({ content }) {
     });
   }, [content]);
 
-  return (
-    <div className="iconLabel">
-      {imageUrl && <img className="icon" src={imageUrl} alt="" width={100} />}
-      <div className="labelGroup" >
-        {contentData.title && <p className="title" >{contentData.title}</p>}
-        {contentData.label && <p className="label" >{contentData.label}</p>}
-      </div>
-    </div>
-  );
+  let href;
+  if (!contentData.label) return null;
+  const title = contentData.title?.toLowerCase();
+  if (title === 'phone') {
+    href = `tel:${contentData.label}`;
+  } else if (title === 'email') {
+    href = `mailto:${contentData.label}`;
+  } else {
+    // assume anything else is a URL for social links
+    href = contentData.label;
+  }
+
+  const Wrapper = href ? 'a' : 'div';
+  const wrapperProps = href
+    ? { href, target: title === 'phone' || title === 'email' ? undefined : '_blank', rel: '_blank' ? 'noopener noreferrer' : undefined }
+    : {};
+
+    return (
+      <Wrapper className="iconLabel" {...wrapperProps}>
+        {imageUrl && (
+          <img
+            className="icon"
+            src={imageUrl}
+            alt={contentData.title || ''}
+            width={100}
+          />
+        )}
+        <div className="labelGroup">
+          {contentData.title && <p className="title">{contentData.title}</p>}
+          {/* {contentData.label && <p className="label">{contentData.label}</p>} */}
+        </div>
+      </Wrapper>
+    );
 }
 
 export default IconLabel;
