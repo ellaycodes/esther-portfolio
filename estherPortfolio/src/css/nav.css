@@ -1,0 +1,30 @@
+nav {
+    width: 100%;
+    /* max-width: 1440px; */
+    display: flex;
+    justify-content: flex-end;
+    background-color: rgb(244, 241, 232);
+    border-bottom: 1px solid #dcdcdc;
+    padding: 0.5rem 0;
+    position: fixed;
+    left: 0;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+    color: black;
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+}
+
+button:hover {
+    color: gray;
+}
+
+button:focus {
+    border: 0;
+    outline: 0;
+}

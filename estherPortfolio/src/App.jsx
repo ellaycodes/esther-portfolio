@@ -1,21 +1,72 @@
 import "./App.css";
 import { getAllEntries } from "./api/api.js";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import HomeSection from "./components/homeSection.jsx";
+import About from "./components/About.jsx";
+import ContentSection from "./components/contentSection.jsx";
+import ContactPage from "./components/contactPage.jsx";
+import NavBar from "./components/NavBar.jsx";
 
 function App() {
-  const [data, setData] = useState("");
+  const [contentData, setContentData] = useState({});
 
   useEffect(() => {
-    getAllEntries().then((res) => setData(res.data));
+    getAllEntries().then((res) => {
+      const pages = res.data.items.filter((item) =>
+        item.sys.contentType.sys.id.endsWith("Page")
+      );
+
+      const dataMap = pages.reduce((acc, item) => {
+        const type = item.sys.contentType.sys.id;
+        acc[type] = acc[type] ? [...acc[type], item] : [item];
+        return acc;
+      }, {});
+      setContentData(dataMap);
+    });
   }, []);
 
+  const homeRef = useRef(null);
+  const aboutRef = useRef(null);
+  const projectsRef = useRef(null);
+  const contactRef = useRef(null);
+
+  const scrollToSection = (section) => {
+    if (section === "home")
+      homeRef.current.scrollIntoView({ behavior: "smooth" });
+    if (section === "about")
+      aboutRef.current.scrollIntoView({ behavior: "smooth" });
+    if (section === "projects")
+      projectsRef.current.scrollIntoView({ behavior: "smooth" });
+    if (section === "contact")
+      contactRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <>
-      <h1>Vite + React</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
-    </>
+    <div>
+      <NavBar onNavClick={scrollToSection} />
+      {contentData.landingPage && (
+        <div ref={homeRef}>
+          <HomeSection content={contentData.landingPage[0]} onCtaClick={scrollToSection} />
+        </div>
+      )}
+      {contentData.aboutPage && (
+        <div ref={aboutRef}>
+          <About content={contentData.aboutPage[0]} />
+        </div>
+      )}
+      {contentData.contentPage &&
+        contentData.contentPage.map((item) => (
+          <div ref={projectsRef} key={item.sys.id}>
+            <ContentSection content={item} />
+          </div>
+        ))}
+      {contentData.contactPage && (
+        <div ref={contactRef}>
+          <ContactPage content={contentData.contactPage[0]} />
+        </div>
+      )}
+    </div>
   );
 }
 
 export default App;
-
