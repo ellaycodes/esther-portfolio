@@ -44,7 +44,6 @@ function IconLabel({ content }) {
             className="icon"
             src={imageUrl}
             alt={contentData.title || ''}
-            width={100}
           />
         )}
         <div className="labelGroup">
