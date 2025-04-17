@@ -28,6 +28,7 @@ function App() {
   const homeRef = useRef(null);
   const aboutRef = useRef(null);
   const projectsRef = useRef(null);
+  const backgroundRef = useRef(null);
   const contactRef = useRef(null);
 
   const scrollToSection = (section) => {
@@ -37,6 +38,8 @@ function App() {
       aboutRef.current.scrollIntoView({ behavior: "smooth" });
     if (section === "projects")
       projectsRef.current.scrollIntoView({ behavior: "smooth" });
+    if (section === "background")
+      backgroundRef.current.scrollIntoView({ behavior: "smooth" });
     if (section === "contact")
       contactRef.current.scrollIntoView({ behavior: "smooth" });
   };
@@ -59,12 +62,14 @@ function App() {
           <About content={contentData.aboutPage[0]} />
         </div>
       )}
-      {contentData.contentPage &&
-        contentData.contentPage.map((item) => (
-          <div className="mainDiv" ref={projectsRef} key={item.sys.id}>
-            <ContentSection content={item} />
-          </div>
-        ))}
+      <div ref={projectsRef}>
+        {contentData.contentPage &&
+          contentData.contentPage.map((item) => (
+            <div className="mainDiv" ref={backgroundRef} key={item.sys.id}>
+              <ContentSection content={item} />
+            </div>
+          ))}
+      </div>
       {contentData.contactPage && (
         <div className="mainDiv" id="contactSection" ref={contactRef}>
           <ContactPage content={contentData.contactPage[0]} />
