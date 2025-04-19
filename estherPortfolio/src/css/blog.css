@@ -1,0 +1,16 @@
+.blogPost {
+    text-align: left;
+    margin: 0 2rem;
+    max-width: 1440px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: black;
+}
+
+.blogPost h1 {
+    font-family: 'radley';
+    color: rgb(155, 72, 25);
+    font-style: italics;
+    font-size: 5rem;
+}

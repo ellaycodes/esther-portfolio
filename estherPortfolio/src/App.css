@@ -12,3 +12,45 @@
 #contactSection {
   background-color: rgb(155, 72, 25);
 }
+
+.backToTop {
+  position: fixed;
+  bottom: 2rem;
+  right: 3rem;
+  border: none;
+  width: auto;
+  height: 3rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: rgb(255 255 255);
+  z-index: 0;
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+}
+
+.backToTop:hover {
+  background-color: rgb(244, 241, 232);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+.backToTop img {
+  width: 2rem;
+  z-index: 500;
+}
+
+.backToTop p {
+  color: black;
+  font-weight: bold;
+  font-family: 'Carlito';
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 6rem;
+}

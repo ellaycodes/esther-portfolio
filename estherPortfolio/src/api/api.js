@@ -43,3 +43,10 @@ export const getAssetById = async (assetId) => {
     `${baseURL}/spaces/${id.spaceId}/environments/${id.environmentId}/assets/${assetId}?access_token=${id.accessToken}`
   );
 }
+
+export const getAllAssets = async () => {
+  await tokens();
+  return axios.get(
+    `${baseURL}/spaces/${id.spaceId}/environments/${id.environmentId}/assets?access_token=${id.accessToken}`
+  )
+}

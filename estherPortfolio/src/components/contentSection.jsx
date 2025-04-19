@@ -30,7 +30,7 @@ function ContentSection({ content }) {
   
     const link = document.createElement('a');
     link.href = blobUrl;
-    link.download = 'CV.pdf';
+    link.download = 'Esther Yekini Front End Developer CV.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
