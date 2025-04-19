@@ -8,16 +8,46 @@
   max-width: 1280px;
 }
 
+.contentSectionHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 5vh;
+}
+
 .contentSectionHeader h1 {
   font-family: "Radley", serif;
   font-size: 5rem;
   margin-bottom: 0.5rem;
 }
-.contentSectionHeader p {
+.contentSectionHeader .cta {
   font-family: "Radley", serif;
   font-style: italic;
   font-size: 1.5rem;
   margin-top: 0.5rem;
+}
+
+.contentSectionHeader .subtitle {
+  font-family: "Carlito", sans-serif;
+  font-size: 1.2rem;
+  color: black;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+.contentSectionHeader .cta:hover {
+  color: gray;
+  cursor: pointer;
+  transform: scale(1.05);
+}
+.contentSectionHeader .cta:active {
+  color: black;
+  transform: scale(0.95);
+}
+.contentSectionHeader .cta:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(185, 118, 80, 0.5);
 }
 
 .cards {
@@ -91,7 +121,7 @@
   .contentSectionHeader h1 {
     font-size: 4rem;
   }
-  .contentSectionHeader p {
+  .contentSectionHeader .cta {
     font-size: 1.2rem;
   }
   .contentCard {
@@ -126,7 +156,7 @@
   .contentSectionHeader h1 {
     font-size: 3.5rem;
   }
-  .contentSectionHeader p {
+  .contentSectionHeader .cta {
     font-size: 1rem;
   }
   .contentCard {

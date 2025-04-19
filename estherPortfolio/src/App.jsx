@@ -62,10 +62,10 @@ function App() {
           <About content={contentData.aboutPage[0]} />
         </div>
       )}
-      <div ref={projectsRef}>
+      <div ref={backgroundRef}>
         {contentData.contentPage &&
           contentData.contentPage.map((item) => (
-            <div className="mainDiv" ref={backgroundRef} key={item.sys.id}>
+            <div className="mainDiv" ref={projectsRef} key={item.sys.id}>
               <ContentSection content={item} />
             </div>
           ))}
