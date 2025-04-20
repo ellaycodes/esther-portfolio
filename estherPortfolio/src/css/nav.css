@@ -11,6 +11,28 @@ nav {
     z-index: 1000;
 }
 
+.blog-nav {
+    background-color: transparent;
+    border: 0;
+    position: absolute;
+    top: 1vh;
+}
+
+.blog-nav button {
+    color: white;
+    text-shadow: 0 0 5px gray;
+}
+
+.blog-nav button:hover {
+    text-shadow: 0 0 5px black;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+    transform: scale(1.05);
+    cursor: pointer;
+    color: white;
+    border-radius: 10px;
+}
+
 button {
     background-color: transparent;
     border: none;

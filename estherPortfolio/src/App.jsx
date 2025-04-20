@@ -95,14 +95,19 @@ function App() {
                     <ContactPage content={contentData.contactPage[0]} />
                   </div>
                 )}
-                <BackToTop page={'app'}/>
+                <BackToTop page={"app"} />
                 <div className="footer">
                   <p>© 2025 Esther Yekini. All rights reserved.</p>
                 </div>
               </>
             }
           />
-          <Route path="blog/:postId" element={<BlogPost />} />
+          {contentData.contactPage && (
+            <Route
+              path="blog/:postId"
+              element={<BlogPost ContactContent={contentData.contactPage[0]} />}
+            />
+          )}
         </Route>
       </Routes>
     </div>
