@@ -53,6 +53,53 @@
   cursor: pointer;
 }
 
+.callToAction p {
+  display: inline-block; 
+  position: relative;         
+  cursor: pointer;
+  color: #9B4819;          
+}
+
+.callToAction p::before,
+.callToAction p::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  filter: blur(0.03rem);
+  border-radius: 50%;
+  background: currentColor;
+  transform-origin: left;
+  transform: scaleX(0);
+  opacity: 1;
+}
+
+.callToAction p::before {
+  bottom: -2px;
+  animation: drawFadeLine1 4s ease-in-out infinite;
+}
+
+.callToAction p::after {
+  bottom: -6px;
+  animation: drawFadeLine2 4s ease-in-out infinite;
+}
+
+@keyframes drawFadeLine1 {
+  0%   { transform: scaleX(0); opacity: 1; }
+  25%  { transform: scaleX(1); opacity: 1; } 
+  75%  { transform: scaleX(1); opacity: 1; } 
+  100% { transform: scaleX(0); opacity: 0; }  
+}
+
+@keyframes drawFadeLine2 {
+  0%   { transform: scaleX(0); opacity: 1; }
+  50%  { transform: scaleX(0); opacity: 1; } 
+  75%  { transform: scaleX(1); opacity: 1; } 
+  100% { transform: scaleX(0); opacity: 0; } 
+}
+
+
 @media screen and (max-width: 1024px) {
   .homeSection {
     height: 100%;
