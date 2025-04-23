@@ -25,7 +25,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background-color: rgb(255 255 255);
+  background-color: rgba(255, 255, 255, 0.5);
   z-index: 0;
   padding: 0.4rem 1rem;
   border-radius: 50px;
@@ -53,4 +53,24 @@
   justify-content: center;
   align-items: center;
   height: 6rem;
+}
+
+@media screen and (max-width: 768px) {
+  .backToTop {
+    bottom: 1rem;
+    right: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0.4rem;
+    border-radius: 50%;
+  }
+
+  .backToTop p {
+    display: none;
+  }
+
+  .backToTop img {
+    width: 1.5rem;
+  }
+  
 }

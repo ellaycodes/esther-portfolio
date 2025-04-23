@@ -38,7 +38,7 @@ function BlogPost({ ContactContent }) {
               <a className="tag" href={post.link}>View the project here</a>
             </div>
           </div>
-          <div>{documentToReactComponents(post.description)}</div>
+          <div className="blogPostText">{documentToReactComponents(post.description)}</div>
         </div>
         <BackToTop page={"blog"} />
         <ContactPage content={ContactContent} />

@@ -166,4 +166,8 @@
   .infoCard {
     width: 90vw;
   }
+
+  .contentSection {
+    padding: 2rem 0.5rem;
+  }
 } 

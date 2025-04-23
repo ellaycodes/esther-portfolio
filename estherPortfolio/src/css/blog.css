@@ -1,16 +1,16 @@
 :root {
-    --videoHeader: 55vh;
+  --videoHeader: 55vh;
 }
 
 .blogPostPage {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .blogPostContainer {
-    max-width: 1440px;
+  max-width: 1440px;
 }
 
 .blogPost {
@@ -25,43 +25,88 @@
 
 .blogPostHeader h1 {
   font-family: "carlito", sans-serif;
-  font-size: 5rem;
+  font-size: 3rem;
   padding-left: 5rem;
   margin-bottom: 1rem;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .blogPostHeader p {
-    font-family: 'carlito';
-    padding: 1rem 2rem;
-    margin: 0;
+  font-family: "carlito";
+  margin: 0;
 }
 
-.blogPostHeader a {
-    padding: 1rem 2rem;
-    color: -webkit-link;
+.blogPostHeaderInfo a {
+  display: inline-block;
+  padding: 0.6em 1.2em;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 999px; /* fully rounded */
+
+  /* two-tone gradient for that glossy feel */
+  background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.25),
+      rgba(255, 255, 255, 0)
+    ),
+    linear-gradient(to bottom, rgb(190, 117, 74), rgb(155, 72, 25));
+
+  /* outer drop shadow + light inner highlight */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15),
+    inset 0 1px 1px rgba(255, 255, 255, 0.6);
+
+  /* subtle text shadow for depth */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  cursor: pointer;
+}
+
+.blogPostHeaderInfo a:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 6px 8px rgba(0,0,0,0.3),
+      inset 0 1px 1px rgba(255,255,255,0.6);
+  }
+
+  .blogPostHeaderInfo a:active {
+    transform: translateY(0);
+    box-shadow:
+      0 2px 3px rgba(0,0,0,0.2),
+      inset 0 1px 1px rgba(255,255,255,0.6);
+  }
+
+.blogPostHeaderInfo p {
+  background-color: white;
+  color: black;
 }
 
 .blogPostHeaderInfo .tag {
-    border: 1px solid gray;
-    border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  font-family: "carlito";
+  font-size: 0.9rem;
+  margin-right: 1rem;
+  transition: all 0.3s ease;
+  font-weight: bold;
 }
 
 .blogPostHeader {
-    position: absolute;
-    top: 10vh;
-    height: calc(var(--videoHeader) - 11vh);
-    width: 100%;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  position: absolute;
+  top: calc(var(--videoHeader) - 20%);
+  height: calc(var(--videoHeader) - 40%);
+  width: 100%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 1440px;
 }
 
 .blogPostHeaderInfo {
-    display: flex;
-    align-items: center;
-    padding-left: 5rem;
+  display: flex;
+  align-items: center;
+  padding-left: 5rem;
 }
 
 #blogVideo {
@@ -71,5 +116,74 @@
   pointer-events: none;
   filter: brightness(50%);
   border-radius: 30px 30px;
-  margin-top: 1vh
+  margin-top: 1vh;
+}
+
+.blogPostText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 5rem;
+  margin: 5vh 0;
+  font-family: "carlito";
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #222;
+}
+
+.blogPostText > p:first-of-type::first-letter {
+  float: left;
+  font-size: 3em;
+  line-height: 0.8;
+  margin-right: 0.1em;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 768px) {
+:root {
+  --videoHeader: 40vh;
+}
+
+.blogPostText {
+  padding: 0 1rem;
+}
+
+.blogPostHeader {
+    height: calc(var(--videoHeader) - 20%);
+}
+.blogPostHeader h1 {
+  padding-left: 2rem;
+}
+
+.blogPostHeaderInfo {
+  padding-left: 2rem;
+}
+
+.blogPostText p {
+    margin-bottom: 0;
+}
+} 
+
+@media screen and (max-width: 375px) {
+    :root {
+        --videoHeader: 30vh;
+    }
+
+    .blogPostHeader {
+        height: calc(var(--videoHeader) - 6%);
+    }
+    
+    .blogPostHeader h1 {
+        font-size: 2rem;
+    }
+    
+    .blogPostHeaderInfo {
+        padding-left: 2rem;
+    }
+
+    .blogPostHeaderInfo .tag {
+        padding: 0.3rem 0.5rem;
+        margin-right: 0.5rem;
+        font-size: 0.7rem;
+    }
 }
