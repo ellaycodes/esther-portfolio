@@ -12,7 +12,8 @@
   },
   "reactSnap": {
     "include": ["/", "/blog"],
-    "inlineCss": true
+    "inlineCss": true,
+    "source": "./dist"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^16.0.1",
