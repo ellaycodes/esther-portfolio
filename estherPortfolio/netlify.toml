@@ -1,6 +1,6 @@
 [build]
   command = "npm run build && npm run postbuild"
-  publish = "dist"
+  publish = "build"
 
 # Serve all .js files with the correct MIME type.
 [[headers]]
