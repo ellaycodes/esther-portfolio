@@ -7,13 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "postbuild": "react-snap"
-  },
-  "reactSnap": {
-    "include": ["/", "/blog"],
-    "inlineCss": true,
-    "source": "./dist"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^16.0.1",
