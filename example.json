@@ -1,0 +1,44 @@
+{
+        "metadata": {
+            "tags": [],
+            "concepts": []
+        },
+        "sys": {
+            "space": {
+                "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "vqtex3zbsn3g"
+                }
+            },
+            "id": "7p8cR1xrZY0y1F2ViL6JSg",
+            "type": "Asset",
+            "createdAt": "2025-04-19T15:12:50.910Z",
+            "updatedAt": "2025-04-19T15:12:50.910Z",
+            "environment": {
+                "sys": {
+                    "id": "master",
+                    "type": "Link",
+                    "linkType": "Environment"
+                }
+            },
+            "publishedVersion": 4,
+            "revision": 1,
+            "locale": "en-US"
+        },
+        "fields": {
+            "title": "Arrow",
+            "file": {
+                "url": "//images.ctfassets.net/vqtex3zbsn3g/7p8cR1xrZY0y1F2ViL6JSg/5e0fa7c209b3695a057365074217f7ec/Arrow-removebg-preview.png",
+                "details": {
+                    "size": 122647,
+                    "image": {
+                        "width": 500,
+                        "height": 500
+                    }
+                },
+                "fileName": "Arrow-removebg-preview.png",
+                "contentType": "image/png"
+            }
+        }
+    }

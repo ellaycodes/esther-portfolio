@@ -16,19 +16,19 @@ export const getAllEntries = async () => {
   );
 };
 
-export const getContentModel = async () => {
-  await tokens();
-  return axios.get(
-    `${baseURL}/spaces/${id.spaceId}/environments/${id.environmentId}/content_types?access_token=${id.accessToken}`
-  );
-};
+// export const getContentModel = async () => {
+//   await tokens();
+//   return axios.get(
+//     `${baseURL}/spaces/${id.spaceId}/environments/${id.environmentId}/content_types?access_token=${id.accessToken}`
+//   );
+// };
 
-export const getContentType = async (contentTypeId) => {
-  await tokens();
-  return axios.get(
-    `${baseURL}/spaces/${id.spaceId}/environments/${id.environmentId}/content_types/${contentTypeId}?access_token=${id.accessToken}`
-  );
-};
+// export const getContentType = async (contentTypeId) => {
+//   await tokens();
+//   return axios.get(
+//     `${baseURL}/spaces/${id.spaceId}/environments/${id.environmentId}/content_types/${contentTypeId}?access_token=${id.accessToken}`
+//   );
+// };
 
 export const getEntryById = async (entryId) => {
   await tokens();

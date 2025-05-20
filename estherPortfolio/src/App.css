@@ -1,6 +1,4 @@
 #root {
-  /* max-width: 1280px;
-  margin: 0 auto; */
   text-align: center;
 }
 
@@ -11,6 +9,9 @@
 
 #contactSection {
   background-color: rgb(155, 72, 25);
+  background-image: url("./assets/brown2.jpg");
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .backToTop {
@@ -45,7 +46,7 @@
 .backToTop p {
   color: black;
   font-weight: bold;
-  font-family: 'Carlito';
+  font-family: "Carlito";
 }
 
 .footer {
@@ -53,6 +54,22 @@
   justify-content: center;
   align-items: center;
   height: 6rem;
+}
+
+div.mainDiv.homeContainer {
+  background-image: url("./assets/beige1.webp");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.contentContainer-0 {
+  background-image: url("./assets/beige3.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
 }
 
 @media screen and (max-width: 768px) {
@@ -72,5 +89,4 @@
   .backToTop img {
     width: 1.5rem;
   }
-  
 }

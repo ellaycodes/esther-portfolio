@@ -4,10 +4,14 @@ import ReactMarkdown from "react-markdown";
 import { getAssetById } from "../api/api";
 import "../css/content.css";
 import { Link } from "react-router-dom";
+import { useInView } from "react-intersection-observer";
 
 function ContentCard({ content }) {
   const [contentData, setContentData] = useState({});
   const [imageUrl, setImageUrl] = useState({});
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+  });
 
   useEffect(() => {
     getEntryById(content).then((res) => {
@@ -28,7 +32,7 @@ function ContentCard({ content }) {
     : { className: 'contentCard' };
 
   return contentData.title ? (
-    <div className={"contentCard" + (contentData.info ? " infoCard" : "")}>
+    <div className={"contentCard" + (contentData.info ? " infoCard" : "") + (inView ? " fadeIn" : "") } ref={ref}>
       <Wrapper {...wrapperProps} style={contentData.info ? { textDecoration: 'none' } : {}}>
         <img
           className={contentData.info ? "logo" : "cover"}

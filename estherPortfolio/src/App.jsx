@@ -66,7 +66,7 @@ function App() {
             element={
               <>
                 {contentData.landingPage && (
-                  <div className="mainDiv" ref={homeRef}>
+                  <div className="mainDiv homeContainer" ref={homeRef}>
                     <HomeSection
                       content={contentData.landingPage[0]}
                       onCtaClick={scrollToSection}
@@ -80,9 +80,9 @@ function App() {
                 )}
                 <div ref={backgroundRef}>
                   {contentData.contentPage &&
-                    contentData.contentPage.map((item) => (
+                    contentData.contentPage.map((item, idx) => (
                       <div
-                        className="mainDiv"
+                        className={`mainDiv contentContainer-${idx % 2 === 0 ? 0 : 1}`}
                         ref={projectsRef}
                         key={item.sys.id}
                       >
