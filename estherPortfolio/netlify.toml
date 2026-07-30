@@ -3,6 +3,10 @@
 
 [build]
   publish = "."
+  # Explicit no-op. Without this, Netlify falls back to the build command still
+  # set in the dashboard (`npm run build`), which would fail: there is no
+  # package.json any more. Do not remove without clearing that setting first.
+  command = "echo 'Static site. Nothing to build.'"
 
 # No redirects. The old SPA catch-all (/* -> /index.html 200) has been removed:
 # it would swallow real 404s and interfere with Netlify Forms.
