@@ -22,11 +22,12 @@
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta name="theme-color" content="#EDF1F4">
+  <meta name="theme-color" content="#F6F4FB">
 
-  <link rel="preload" href="/fonts/bricolage-grotesque-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/satoshi-900.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/satoshi-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/public-sans-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/ibm-plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/ibm-plex-mono-600.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/styles.css">
 </head>
 
@@ -46,35 +47,59 @@
     <!-- 4.2 Hero, as a filled-in form. This block is the one animated moment on the page. -->
     <section class="block hero" aria-labelledby="hero-builds">
       <div class="card">
-        <dl class="fields">
-          <div class="field">
-            <dt class="field__label">Name</dt>
-            <dd class="field__value" data-fill="1">Esther Yekini</dd>
-          </div>
-          <div class="field">
-            <dt class="field__label">Role</dt>
-            <dd class="field__value" data-fill="2">Full-stack developer</dd>
-          </div>
-          <div class="field">
-            <dt class="field__label">Location</dt>
-            <dd class="field__value" data-fill="3">Manchester</dd>
-          </div>
-          <div class="field field--last">
-            <dt class="field__label">Builds</dt>
-            <dd class="field__value field__value--display" data-fill="4">
-              <h1 id="hero-builds">The internal tools small teams can't build themselves.</h1>
-            </dd>
-          </div>
-        </dl>
+        <div class="hero__main">
+          <dl class="fields">
+            <div class="field">
+              <dt class="field__label">Name</dt>
+              <dd class="field__value" data-fill="1">Esther Yekini</dd>
+            </div>
+            <div class="field">
+              <dt class="field__label">Role</dt>
+              <dd class="field__value" data-fill="2">Full-stack developer</dd>
+            </div>
+            <div class="field">
+              <dt class="field__label">Location</dt>
+              <dd class="field__value" data-fill="3">Manchester</dd>
+            </div>
+            <div class="field field--last">
+              <dt class="field__label">Builds</dt>
+              <dd class="field__value field__value--display" data-fill="4">
+                <h1 id="hero-builds">The internal tools small teams can't build themselves.</h1>
+              </dd>
+            </div>
+          </dl>
 
-        <div class="field hero__foot">
-          <p class="field__label" aria-hidden="true">Detail</p>
-          <div class="field__body">
-            <p class="lede">Finance platforms, onboarding trackers, and forms that people will actually use. Built
-              properly, supported afterwards.</p>
-            <p><a class="button" href="#contact">Get in touch</a></p>
+          <div class="field hero__foot">
+            <p class="field__label" aria-hidden="true">Detail</p>
+            <div class="field__body">
+              <p class="lede">Finance platforms, onboarding trackers, and forms that people will actually use. Built
+                properly, supported afterwards.</p>
+              <p><a class="button" href="#contact">Get in touch</a></p>
+            </div>
           </div>
         </div>
+
+        <!--
+          The hero artefact: a payment request in its approved state, which is the
+          thing being sold. Illustrative rather than informational, so it is hidden
+          below 60rem and hidden from screen readers.
+
+          EVERY VALUE HERE IS INVENTED. Do not put a real payee, amount, reference
+          or timestamp on this card.
+        -->
+        <figure class="artefact" aria-hidden="true">
+          <p class="artefact__ref">REF PR-2481 · 12 MAR</p>
+          <p class="artefact__payee">Northgate Supplies Ltd</p>
+          <p class="artefact__amount">£2,480.00</p>
+          <ul class="artefact__trail">
+            <li><span>Requested by A. Mensah</span><time>09:14</time></li>
+            <li><span>Approved by T. Okoro</span><time>11:02</time></li>
+            <li><span>Approved by J. Bello</span><time>14:37</time></li>
+          </ul>
+          <div class="artefact__foot">
+            <p class="stamp">Approved</p>
+          </div>
+        </figure>
       </div>
     </section>
 
@@ -84,6 +109,7 @@
         <div class="field">
           <p class="field__label">Case 01</p>
           <div class="field__body">
+            <div class="case__text">
             <h2 id="case-01">Payment approvals, replacing a spreadsheet and WhatsApp</h2>
 
             <p>A finance team was approving payments over WhatsApp and paper. Requests got lost, nobody could say who
@@ -102,6 +128,7 @@
 
             <p>Built with React, TypeScript, Supabase and Postgres. Security enforced at the database level rather than
               trusted to the browser.</p>
+            </div>
 
             <!--
               SCREENSHOTS. Replace each placeholder <div class="shot__slot"> with:
@@ -140,15 +167,17 @@
         <div class="field">
           <p class="field__label">Case 02</p>
           <div class="field__body">
-            <h2 id="case-02">Template building, from 16 hours to 30 minutes</h2>
+            <div class="case__text">
+              <h2 id="case-02">Template building, from 16 hours to 30 minutes</h2>
 
-            <p>A marketing automation company was hand-building branded email and landing page templates for every new
-              client. Sixteen hours of manual work per onboarding.</p>
+              <p>A marketing automation company was hand-building branded email and landing page templates for every
+                new client. Sixteen hours of manual work per onboarding.</p>
 
-            <p>I built an internal tool that generates them automatically from the client's brand assets. Build time
-              dropped to thirty minutes.</p>
+              <p>I built an internal tool that generates them automatically from the client's brand assets. Build time
+                dropped to thirty minutes.</p>
 
-            <p>React, Node.js, Express, REST APIs, tested with Jest.</p>
+              <p>React, Node.js, Express, REST APIs, tested with Jest.</p>
+            </div>
           </div>
         </div>
 
@@ -156,6 +185,8 @@
         <p class="stamp">Shipped</p>
       </div>
     </section>
+
+    <hr class="rule">
 
     <!-- 4.4 What I do. Three items, no icons, no cards. -->
     <section class="block" aria-labelledby="services">
@@ -194,13 +225,19 @@
       </div>
     </section>
 
-    <!-- 4.5b Other work. Horizontal strip, not a carousel. All cards in the DOM. -->
-    <section class="block" aria-labelledby="also">
-      <h2 class="visually-hidden" id="also">Other work</h2>
-      <div class="field">
-        <p class="field__label">Also</p>
-        <div class="field__body">
-          <p class="hint">Scroll sideways, or use the arrow keys.</p>
+    <hr class="rule">
+
+    <!-- 4.5b Other work. Horizontal strip, not a carousel. All cards in the DOM.
+         The section runs full width so the strip can bleed past the container on
+         both sides; the label block keeps the normal container. -->
+    <section class="block block--flush" aria-labelledby="also">
+      <div class="block__inner">
+        <h2 class="visually-hidden" id="also">Other work</h2>
+        <div class="field">
+          <p class="field__label">Also</p>
+          <div class="field__body">
+            <p class="hint">Scroll sideways, or use the arrow keys.</p>
+          </div>
         </div>
       </div>
 
@@ -234,6 +271,8 @@
       </ul>
     </section>
 
+    <hr class="rule">
+
     <!-- 4.6 Contact. Netlify Forms, no backend. -->
     <section class="block" id="contact" aria-labelledby="enquiry">
       <div class="card">
@@ -253,14 +292,15 @@
             <label>Leave this field empty: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
           </p>
 
-          <div class="field field--rule">
+          <!-- field--half puts name and email side by side above 40rem. -->
+          <div class="field field--rule field--half">
             <label class="field__label" for="f-name">Name</label>
             <div class="field__body">
               <input id="f-name" name="name" type="text" autocomplete="name" required>
             </div>
           </div>
 
-          <div class="field field--rule">
+          <div class="field field--rule field--half">
             <label class="field__label" for="f-email">Email</label>
             <div class="field__body">
               <input id="f-email" name="email" type="email" autocomplete="email" required>
@@ -300,11 +340,8 @@
   </main>
 
   <footer class="footer">
-    <div class="field">
-      <p class="field__label">End</p>
-      <div class="field__body">
-        <p>© 2026 Esther Yekini</p>
-      </div>
+    <div class="footer__inner">
+      <p>© 2026 Esther Yekini</p>
     </div>
   </footer>
 

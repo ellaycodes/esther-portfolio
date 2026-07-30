@@ -1,16 +1,27 @@
 /* -------------------------------------------------------------------------
    Esther Yekini — services page
-   One stylesheet, hand written. The organising logic is a paper form:
-   a mono field label on the left, content on the right, hairlines marking
-   real field boundaries only.
+   Built to the styling doc, which supersedes section 4a of the PRD.
+
+   Direction: modern SaaS. Saturated colour as surface rather than accent,
+   large soft-cornered cards, layered depth, display type at real scale.
+   Retained from the previous direction: the field-label grid, the mono
+   labels, and the stamp.
    ---------------------------------------------------------------------- */
 
-/* --- Fonts. Latin subset, self hosted, two weights maximum per face. ----- */
+/* --- Fonts. Self hosted, two weights per face. --------------------------- */
 
 @font-face {
-  font-family: 'Bricolage Grotesque';
-  src: url('/fonts/bricolage-grotesque-700.woff2') format('woff2');
+  font-family: 'Satoshi';
+  src: url('/fonts/satoshi-700.woff2') format('woff2');
   font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/satoshi-900.woff2') format('woff2');
+  font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
@@ -47,28 +58,53 @@
   font-display: swap;
 }
 
-/* --- Tokens ------------------------------------------------------------- */
+/* --- Tokens -------------------------------------------------------------- */
 
 :root {
-  --paper: #EDF1F4;
-  --surface: #FFFFFF;
-  --ink: #17252E;
-  --ink-soft: #4C5C66;
-  /* muted ink for field labels, 7.0:1 on paper */
-  --rule: #C0CBD3;
-  --stamp: #6E3FA3;
-  --ledger: #2F6B4F;
+  /* Ink */
+  --ink: #150F2E;
+  --ink-soft: #5B5478;
 
-  --display: 'Bricolage Grotesque', Georgia, serif;
+  /* Violet, the surface colour */
+  --violet-900: #2A1A5E;
+  --violet-600: #4B2FD6;
+  --violet-500: #6D4AFF;
+  --violet-100: #E9E4FF;
+
+  /* Signal, used once per case study, on the stamp */
+  --signal: #FF7A59;
+  --signal-ink: #3D1005;
+
+  /* Page */
+  --paper: #F6F4FB;
+  --surface: #FFFFFF;
+  --hairline: #E4E0F0;
+
+  /* Shape */
+  --radius-card: 24px;
+  --radius-sm: 12px;
+  --radius-pill: 999px;
+
+  /* Depth */
+  --shadow-card: 0 20px 50px -20px rgba(21, 15, 46, 0.32);
+  --shadow-hero: 0 30px 70px -25px rgba(42, 26, 94, 0.55);
+
+  /* Layout */
+  --page-max: 84rem;
+  --measure: 34rem;
+  --bleed: 0.75rem;
+  --section: clamp(4rem, 9vw, 7rem);
+  --label-width: 8.5rem;
+  --pad: clamp(1rem, 4vw, 2.5rem);
+  --gutter: 2rem;
+
+  /* Type. The display fallback is sans, never serif. */
+  --display: 'Satoshi', 'Helvetica Neue', Arial, sans-serif;
   --body: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
-
-  --column: 46rem;
-  --label-width: 8.5rem;
-  --gutter: 2.25rem;
 }
 
-/* --- Reset, minimal ----------------------------------------------------- */
+/* --- Reset, minimal ------------------------------------------------------ */
 
 *,
 *::before,
@@ -95,8 +131,8 @@ h2,
 h3 {
   font-family: var(--display);
   font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.015em;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
   margin: 0;
   text-wrap: balance;
 }
@@ -116,7 +152,7 @@ a {
 }
 
 a:hover {
-  text-decoration-color: var(--stamp);
+  text-decoration-color: var(--violet-500);
 }
 
 img {
@@ -125,12 +161,16 @@ img {
   display: block;
 }
 
-/* --- Focus. Violet, visible on everything interactive. ------------------ */
+/* --- Focus. 2px violet at 3px offset, on everything interactive. --------- */
 
 :focus-visible {
-  outline: 2px solid var(--stamp);
+  outline: 2px solid var(--violet-500);
   outline-offset: 3px;
-  border-radius: 1px;
+  border-radius: var(--radius-sm);
+}
+
+.hero :focus-visible {
+  outline-color: #fff;
 }
 
 .skip-link {
@@ -138,10 +178,10 @@ img {
   left: -9999px;
   top: 0;
   background: var(--ink);
-  color: var(--paper);
+  color: #fff;
   padding: 0.75rem 1rem;
-  font-family: var(--mono);
-  font-size: 0.75rem;
+  border-radius: 0 0 var(--radius-sm) 0;
+  font-size: 0.9375rem;
   z-index: 10;
 }
 
@@ -162,7 +202,7 @@ img {
   border: 0;
 }
 
-/* --- The field grid. This is the whole layout system. ------------------- */
+/* --- The field grid. Retained, and still the organising logic. ----------- */
 
 .field {
   display: grid;
@@ -174,13 +214,13 @@ img {
 
 .field--rule,
 .fields .field+.field {
-  border-top: 1px solid var(--rule);
+  border-top: 1px solid var(--hairline);
 }
 
 .field__label {
   font-family: var(--mono);
   font-size: 0.6875rem;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.5;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -195,99 +235,272 @@ img {
   min-width: 0;
 }
 
-.field__value {
-  font-weight: 600;
+/* Surfaces get wide. Text does not. */
+.field__body {
+  max-width: var(--measure);
 }
 
-/* --- Page blocks. Single column, generous margins, nothing full bleed. --- */
+/* --- Page container. Wide page, narrow measure. -------------------------- */
 
 .block,
 .masthead__inner,
-.footer .field {
-  max-width: var(--column);
+.block__inner,
+.footer__inner {
+  max-width: var(--page-max);
   margin-inline: auto;
-  padding-inline: 1.5rem;
+  padding-inline: var(--pad);
 }
 
-.masthead {
-  border-bottom: 1px solid var(--rule);
+/* Vertical rhythm between major blocks. */
+main>*+* {
+  margin-top: var(--section);
 }
+
+/* --- Masthead. Transparent, no border, no uppercase. --------------------- */
 
 .masthead__inner {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem 1.5rem;
+  gap: 0.15rem 1.25rem;
   justify-content: space-between;
   align-items: baseline;
-  padding-block: 1.15rem;
-}
-
-.masthead__name,
-.masthead__role {
-  font-family: var(--mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin: 0;
+  padding-block: 1.5rem;
 }
 
 .masthead__name {
-  font-weight: 600;
-}
-
-.masthead__role {
-  color: var(--ink-soft);
-}
-
-.block {
-  padding-block: 2.5rem;
-}
-
-.hero {
-  padding-top: 3.25rem;
-}
-
-.card {
-  background: var(--surface);
-  border: 1px solid var(--rule);
-  padding: 0.5rem 1.75rem 1.5rem;
-}
-
-.card--case {
-  position: relative;
-  padding-bottom: 1.75rem;
-}
-
-.fields {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
   margin: 0;
 }
 
-/* --- Hero ---------------------------------------------------------------- */
+.masthead__role {
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* --- Structural device. Dotted rule with a plus at each end. ------------- */
+
+/* Sized to the content column rather than the container, so the dashed line
+   starts and ends exactly where the text does. */
+.rule {
+  border: 0;
+  border-top: 1px dashed var(--hairline);
+  position: relative;
+  width: min(calc(var(--page-max) - 2 * var(--pad)), calc(100% - 2 * var(--pad)));
+  margin: var(--section) auto;
+}
+
+.rule::before,
+.rule::after {
+  content: "+";
+  position: absolute;
+  top: -0.7em;
+  color: var(--ink-soft);
+  font-family: var(--mono);
+  font-size: 0.875rem;
+  line-height: 1;
+}
+
+.rule::before {
+  left: -0.3em;
+}
+
+.rule::after {
+  right: -0.3em;
+}
+
+/* --- Hero. Full-bleed inset card, the one saturated surface. ------------- */
+
+.hero {
+  max-width: none;
+  padding: var(--bleed);
+  margin-top: 0;
+}
+
+.hero .card {
+  background: linear-gradient(135deg, var(--violet-900) 0%, var(--violet-600) 100%);
+  color: #fff;
+  border: 0;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-hero);
+  min-height: min(86vh, 780px);
+  display: grid;
+  align-content: center;
+  gap: 3rem;
+  /* Vertical padding is the tighter of the doc's two figures for this card, so
+     the whole hero, button included, clears the fold on a 900px window. */
+  padding: clamp(1.75rem, 3.5vw, 3rem) clamp(2rem, 6vw, 5rem);
+}
+
+.hero .field {
+  padding-block: 0.8rem;
+}
+
+@media (min-width: 60rem) {
+  .hero .card {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    align-items: center;
+  }
+}
+
+/* The name needs more room than --measure leaves once the label column is
+   taken out, so the hero's own field block is capped a little wider. */
+.hero .fields,
+.hero__foot {
+  max-width: 42rem;
+}
+
+.hero .field__label {
+  color: var(--violet-100);
+}
+
+.hero .fields .field+.field,
+.hero__foot {
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+/* Name first and largest. */
+.hero .fields .field:first-child .field__value {
+  font-family: var(--display);
+  font-weight: 900;
+  /* Doc says max 6.5rem. Capped at 5.75rem because the name wraps to two lines
+     in the hero's left column, and 6.5rem pushes the button past the fold. */
+  font-size: clamp(3.5rem, 8vw, 5.75rem);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+
+/* Hero secondary values. */
+.hero .fields .field+.field .field__value {
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 1.25rem;
+}
 
 .hero h1 {
-  font-size: clamp(1.75rem, 6.2vw, 2.55rem);
-  letter-spacing: -0.025em;
-  line-height: 1.1;
-}
-
-.field__value--display {
+  font-family: var(--display);
   font-weight: 700;
-  padding-top: 0.15rem;
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
 }
 
-.hero__foot {
-  border-top: 1px solid var(--rule);
+.hero .lede {
+  font-size: 1.0625rem;
+  color: var(--violet-100);
 }
 
-.lede {
-  color: var(--ink);
+/* --- The hero artefact. The only illustration on the page. --------------- */
+/*     A payment request in its approved state. All data is invented.        */
+
+.artefact {
+  display: none;
 }
 
-/* --- Case studies -------------------------------------------------------- */
+@media (min-width: 60rem) {
+  .artefact {
+    display: block;
+    justify-self: center;
+    width: min(100%, 25rem);
+    background: var(--surface);
+    color: var(--ink);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-card);
+    padding: 1.5rem 1.5rem 1.25rem;
+    transform: rotate(2deg);
+  }
+}
+
+.artefact__ref {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  margin: 0 0 1rem;
+}
+
+.artefact__payee {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.125rem;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.15rem;
+}
+
+.artefact__amount {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 2rem;
+  letter-spacing: -0.03em;
+  margin: 0 0 1.15rem;
+}
+
+.artefact__trail {
+  list-style: none;
+  margin: 0;
+  padding: 1rem 0 0;
+  border-top: 1px dashed var(--hairline);
+  font-size: 0.875rem;
+}
+
+.artefact__trail li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.3rem 0;
+}
+
+.artefact__trail time {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.artefact__foot {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.75rem;
+}
+
+/* --- Case study cards ---------------------------------------------------- */
+
+.card {
+  background: var(--surface);
+  border: 0;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.card--case .field__label {
+  color: var(--violet-600);
+}
 
 .card--case h2 {
-  font-size: clamp(1.3rem, 3.6vw, 1.65rem);
-  margin-bottom: 1rem;
+  font-size: clamp(1.6rem, 4vw, 2.25rem);
+  margin-bottom: 1.15rem;
+}
+
+/* The body of a case study is the wide surface: text left, shots right. */
+.card--case .field__body {
+  max-width: none;
+}
+
+.case__text {
+  max-width: var(--measure);
+}
+
+@media (min-width: 56rem) {
+  .card--case .field__body {
+    display: grid;
+    grid-template-columns: minmax(0, var(--measure)) minmax(0, 1fr);
+    gap: 2.5rem;
+    align-items: start;
+  }
 }
 
 .list {
@@ -300,16 +513,21 @@ img {
 }
 
 .list li::marker {
-  color: var(--ink-soft);
+  color: var(--violet-600);
 }
 
 /* Screenshot slots. Replace the .shot__slot divs with <img>. */
 
 .shots {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   margin-top: 1.5rem;
+}
+
+@media (min-width: 56rem) {
+  .shots {
+    margin-top: 0;
+  }
 }
 
 .shot {
@@ -319,76 +537,83 @@ img {
 .shot__slot {
   aspect-ratio: 4 / 3;
   background: var(--paper);
-  border: 1px dashed var(--rule);
+  border: 1px dashed var(--hairline);
+  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.06em;
+  font-size: 0.875rem;
   color: var(--ink-soft);
 }
 
 .shot img {
-  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
 }
 
 .shot figcaption {
-  font-family: var(--mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-size: 0.875rem;
   color: var(--ink-soft);
   margin-top: 0.5rem;
 }
 
-/* --- The signature element. One stamp per case study, nowhere else. ------ */
+/* --- The stamp. Signal colour, once per case study, nowhere else. -------- */
 
 .stamp {
   display: block;
   width: fit-content;
-  margin: 1.75rem 0 0 auto;
+  margin: 2rem 0 0 auto;
+  background: var(--signal);
+  color: var(--signal-ink);
+  border: 0;
+  border-radius: var(--radius-pill);
+  padding: 0.65rem 1.35rem;
   font-family: var(--mono);
-  font-size: 0.6875rem;
+  font-size: 0.9375rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--stamp);
-  border: 1px solid var(--stamp);
-  padding: 0.4rem 0.7rem;
-  transform: rotate(-2.5deg);
+  transform: rotate(-4deg);
+}
+
+.artefact .stamp {
+  margin: 0;
+  font-size: 0.75rem;
+  padding: 0.4rem 0.9rem;
 }
 
 /* --- How I work ---------------------------------------------------------- */
 
 .mono-line {
   font-family: var(--mono);
-  font-size: 0.875rem;
-  letter-spacing: 0.01em;
+  font-size: 0.9375rem;
 }
 
 .hint {
-  font-family: var(--mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-size: 0.875rem;
   color: var(--ink-soft);
 }
 
-/* --- Work strip. Not a carousel. User driven, keyboard reachable. -------- */
+/* --- Work strip. Bleeds past the container on both sides. ---------------- */
+
+.block--flush {
+  max-width: none;
+  padding-inline: 0;
+}
 
 .strip {
   list-style: none;
   margin: 0;
-  padding: 0.25rem 1.5rem 1.25rem;
+  /* Aligns the first card with the content column, then lets the rest run
+     out to the viewport edge, so a partial card shows at each side. */
+  padding: 0.5rem max(var(--pad), calc((100% - var(--page-max)) / 2 + var(--pad))) 1.5rem;
   display: flex;
-  gap: 1rem;
+  gap: 1.25rem;
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
-  scroll-padding-left: 1.5rem;
+  scroll-padding-left: max(var(--pad), calc((100% - var(--page-max)) / 2 + var(--pad)));
   scrollbar-width: thin;
-  scrollbar-color: var(--rule) transparent;
+  scrollbar-color: var(--hairline) transparent;
 }
 
 .strip.is-dragging {
@@ -399,16 +624,18 @@ img {
 
 .strip__card {
   flex: 0 0 auto;
-  width: min(17rem, 74vw);
+  width: min(19rem, 74vw);
   scroll-snap-align: start;
   background: var(--surface);
-  border: 1px solid var(--rule);
-  padding: 1.15rem 1.25rem;
+  border: 0;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 1.5rem;
 }
 
 .strip__card h3 {
-  font-size: 1.0625rem;
-  margin-bottom: 0.4rem;
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
 }
 
 .strip__card p {
@@ -417,18 +644,42 @@ img {
 }
 
 .strip__stack {
-  font-family: var(--mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-size: 0.875rem;
   color: var(--ink-soft);
   margin-bottom: 0 !important;
 }
 
-/* --- Contact form -------------------------------------------------------- */
+/* --- Contact ------------------------------------------------------------- */
 
 .form {
   margin-top: 0.25rem;
+}
+
+@media (min-width: 40rem) {
+  .form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2rem;
+  }
+
+  .form>.field {
+    grid-column: 1 / -1;
+  }
+
+  .form>.field--half {
+    grid-column: auto;
+  }
+
+  /* Side by side fields stack their own label above the value, since the
+     two column label grid does not fit in half the width. */
+  .form>.field--half {
+    grid-template-columns: 1fr;
+    row-gap: 0.4rem;
+  }
+
+  .form>.field--half .field__label {
+    padding-top: 0;
+  }
 }
 
 input[type="text"],
@@ -440,10 +691,10 @@ textarea {
   font-size: 1rem;
   line-height: 1.5;
   color: var(--ink);
-  background: var(--paper);
-  border: 1px solid var(--rule);
-  border-radius: 0;
-  padding: 0.6rem 0.7rem;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 0.85rem;
   appearance: none;
 }
 
@@ -464,41 +715,36 @@ select {
 input:focus,
 select:focus,
 textarea:focus {
-  border-color: var(--stamp);
+  border-color: var(--violet-500);
 }
+
+/* --- Button. One primary, and the form submit matches it. ---------------- */
 
 .button {
   display: inline-block;
-  font-family: var(--mono);
-  font-size: 0.75rem;
+  font-family: var(--body);
+  font-size: 1rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--paper);
-  background: var(--ink);
-  border: 1px solid var(--ink);
-  border-radius: 0;
-  padding: 0.85rem 1.4rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #fff;
+  background: var(--violet-500);
+  border: 0;
+  border-radius: var(--radius-pill);
+  padding: 0.9rem 1.85rem;
   text-decoration: none;
   cursor: pointer;
 }
 
 .button:hover {
-  background: #0E1A21;
+  background: var(--violet-600);
 }
 
-/* --- Footer -------------------------------------------------------------- */
+/* --- Footer. Plain text on the page background. -------------------------- */
 
-.footer {
-  border-top: 1px solid var(--rule);
-  margin-top: 2.5rem;
-}
-
-.footer .field__body {
-  font-family: var(--mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+.footer__inner {
+  padding-block: 2rem 3rem;
+  font-size: 0.875rem;
   color: var(--ink-soft);
 }
 
@@ -530,17 +776,18 @@ textarea:focus {
 @keyframes fill-stamp {
   from {
     opacity: 0;
-    transform: rotate(-2.5deg) scale(1.06);
+    transform: rotate(-4deg) scale(1.06);
   }
 
   to {
     opacity: 1;
-    transform: rotate(-2.5deg) scale(1);
+    transform: rotate(-4deg) scale(1);
   }
 }
 
 .hero .field__label,
-.hero__foot .field__body {
+.hero__foot .field__body,
+.artefact {
   animation: fill-label 200ms ease-out both;
 }
 
@@ -572,6 +819,7 @@ textarea:focus {
 
   .hero .field__label,
   .hero__foot .field__body,
+  .artefact,
   .hero [data-fill],
   [data-fill="stamp"] {
     animation: none;
@@ -599,73 +847,12 @@ textarea:focus {
     padding-top: 0;
   }
 
-  .card {
-    padding-inline: 1.15rem;
-  }
-
-  .block {
-    padding-inline: 1rem;
-    padding-block: 1.75rem;
-  }
-
-  .masthead__inner,
-  .footer .field {
-    padding-inline: 1rem;
-  }
-
-  .strip {
-    padding-inline: 1rem;
-    scroll-padding-left: 1rem;
-  }
-
-  .shots {
-    grid-template-columns: 1fr;
+  .hero .card {
+    min-height: 0;
+    gap: 2rem;
   }
 
   .stamp {
-    margin-top: 1.25rem;
+    margin-top: 1.5rem;
   }
 }
-
-:root {
-  --ink:        #150F2E;
-  --ink-soft:   #5B5478;
-  --violet-900: #2A1A5E;
-  --violet-500: #6D4AFF;
-  --violet-200: #C4B5FD;
-  --signal:     #FF7A59;
-  --paper:      #F6F4FB;
-  --surface:    #FFFFFF;
-
-  --radius-card: 24px;
-  --radius-pill: 999px;
-  --shadow-card: 0 20px 50px -20px rgba(21, 15, 46, 0.35);
-}
-
-.hero .card {
-  background: linear-gradient(135deg, var(--violet-900) 0%, var(--violet-500) 100%);
-  color: #fff; border: 0; border-radius: var(--radius-card);
-  padding: 3rem 2.5rem;
-}
-.hero .field__label { color: var(--violet-200); }
-
-.hero .fields .field:first-child .field__value {
-  font-family: var(--display); font-weight: 900;
-  font-size: clamp(3.5rem, 10vw, 6.5rem);
-  line-height: 0.92; letter-spacing: -0.04em; color: #fff;
-}
-.hero h1 { font-size: clamp(2rem, 5vw, 3rem); color: #fff; }
-
-.card--case {
-  border: 0; border-radius: var(--radius-card);
-  box-shadow: var(--shadow-card); padding: 2.25rem;
-}
-
-.button { border-radius: var(--radius-pill); background: var(--violet-500);
-  border-color: var(--violet-500); text-transform: none;
-  font-family: var(--body); font-size: 1rem; padding: 0.9rem 1.75rem; }
-
-.stamp { border: 0; border-radius: var(--radius-pill);
-  background: var(--signal); color: #3D1005;
-  font-size: 0.9375rem; letter-spacing: 0.16em;
-  padding: 0.65rem 1.25rem; transform: rotate(-4deg); }
