@@ -626,3 +626,46 @@ textarea:focus {
     margin-top: 1.25rem;
   }
 }
+
+:root {
+  --ink:        #150F2E;
+  --ink-soft:   #5B5478;
+  --violet-900: #2A1A5E;
+  --violet-500: #6D4AFF;
+  --violet-200: #C4B5FD;
+  --signal:     #FF7A59;
+  --paper:      #F6F4FB;
+  --surface:    #FFFFFF;
+
+  --radius-card: 24px;
+  --radius-pill: 999px;
+  --shadow-card: 0 20px 50px -20px rgba(21, 15, 46, 0.35);
+}
+
+.hero .card {
+  background: linear-gradient(135deg, var(--violet-900) 0%, var(--violet-500) 100%);
+  color: #fff; border: 0; border-radius: var(--radius-card);
+  padding: 3rem 2.5rem;
+}
+.hero .field__label { color: var(--violet-200); }
+
+.hero .fields .field:first-child .field__value {
+  font-family: var(--display); font-weight: 900;
+  font-size: clamp(3.5rem, 10vw, 6.5rem);
+  line-height: 0.92; letter-spacing: -0.04em; color: #fff;
+}
+.hero h1 { font-size: clamp(2rem, 5vw, 3rem); color: #fff; }
+
+.card--case {
+  border: 0; border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card); padding: 2.25rem;
+}
+
+.button { border-radius: var(--radius-pill); background: var(--violet-500);
+  border-color: var(--violet-500); text-transform: none;
+  font-family: var(--body); font-size: 1rem; padding: 0.9rem 1.75rem; }
+
+.stamp { border: 0; border-radius: var(--radius-pill);
+  background: var(--signal); color: #3D1005;
+  font-size: 0.9375rem; letter-spacing: 0.16em;
+  padding: 0.65rem 1.25rem; transform: rotate(-4deg); }
