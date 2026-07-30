@@ -1,21 +1,357 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
 
 <head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/png+xml" href="/EY.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&family=Radley:ital@0;1&display=swap"
-    rel="stylesheet">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Esther Yekini</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Esther Yekini — Full-stack developer, Manchester</title>
+  <meta name="description"
+    content="Full-stack developer in Manchester. I build the internal tools small teams can't buy off the shelf: approval workflows, audit trails, and forms people actually use.">
+  <link rel="canonical" href="https://estheryekini.com/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://estheryekini.com/">
+  <meta property="og:title" content="Esther Yekini — Full-stack developer, Manchester">
+  <meta property="og:description"
+    content="I build the internal tools small teams can't buy off the shelf. Approval workflows, audit trails, and forms people actually use.">
+  <meta property="og:image" content="https://estheryekini.com/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Esther Yekini, full-stack developer, Manchester.">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#EDF1F4">
+
+  <link rel="preload" href="/fonts/bricolage-grotesque-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/public-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/ibm-plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/styles.css">
 </head>
 
 <body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.jsx"></script>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- 4.1 Header. Name and one line role. No nav. -->
+  <header class="masthead">
+    <div class="masthead__inner">
+      <p class="masthead__name">Esther Yekini</p>
+      <p class="masthead__role">Full-stack developer · Manchester</p>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- 4.2 Hero, as a filled-in form. This block is the one animated moment on the page. -->
+    <section class="block hero" aria-labelledby="hero-builds">
+      <div class="card">
+        <dl class="fields">
+          <div class="field">
+            <dt class="field__label">Name</dt>
+            <dd class="field__value" data-fill="1">Esther Yekini</dd>
+          </div>
+          <div class="field">
+            <dt class="field__label">Role</dt>
+            <dd class="field__value" data-fill="2">Full-stack developer</dd>
+          </div>
+          <div class="field">
+            <dt class="field__label">Location</dt>
+            <dd class="field__value" data-fill="3">Manchester</dd>
+          </div>
+          <div class="field field--last">
+            <dt class="field__label">Builds</dt>
+            <dd class="field__value field__value--display" data-fill="4">
+              <h1 id="hero-builds">The internal tools small teams can't buy off the shelf.</h1>
+            </dd>
+          </div>
+        </dl>
+
+        <div class="field hero__foot">
+          <p class="field__label" aria-hidden="true">Detail</p>
+          <div class="field__body">
+            <p class="lede">Approval workflows, audit trails, and forms that people will actually use. Built properly,
+              handed over working, supported afterwards.</p>
+            <p><a class="button" href="#contact">Get in touch</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4.3 Case study one. The most important section on the page. -->
+    <section class="block" aria-labelledby="case-01">
+      <div class="card card--case">
+        <div class="field">
+          <p class="field__label">Case 01</p>
+          <div class="field__body">
+            <h2 id="case-01">Payment approvals, replacing paper and WhatsApp</h2>
+
+            <p>A finance team was approving payments over WhatsApp and paper. Requests got lost, nobody could say who
+              had authorised what, and bank details were sitting in chat histories.</p>
+
+            <p>I built a submission and approval system to replace it.</p>
+
+            <ul class="list">
+              <li>Anyone can submit a request through a public link, with no account needed</li>
+              <li>Receipts, e-signature, and an automatic reference number</li>
+              <li>The whole team is notified in real time and can approve from their phone without opening the app</li>
+              <li>Every action is logged, so there is a complete record of who decided what and when</li>
+              <li>Bank details are visible only to authorised roles and delete themselves 90 days after payment</li>
+              <li>Role-based access, with guardrails like preventing removal of the last admin</li>
+            </ul>
+
+            <p>Built with React, TypeScript, Supabase and Postgres. Security enforced at the database level rather than
+              trusted to the browser.</p>
+
+            <!--
+              SCREENSHOTS. Replace each placeholder <div class="shot__slot"> with:
+                <img src="/shots/01-submission.png" width="1200" height="900" alt="…" loading="lazy" decoding="async">
+              Rules from PRD section 8, strictly:
+                - No real payee names, amounts, references, or bank details. Dummy data only.
+                - Consistent browser frame, or no frame at all. Not a mix.
+                - Keep each file under ~120KB so the page stays under 500KB total.
+              Delete this whole <div class="shots"> block if you would rather ship without them.
+            -->
+            <div class="shots">
+              <figure class="shot">
+                <div class="shot__slot" aria-hidden="true"><span>1200 × 900</span></div>
+                <figcaption>01 · Submission</figcaption>
+              </figure>
+              <figure class="shot">
+                <div class="shot__slot" aria-hidden="true"><span>1200 × 900</span></div>
+                <figcaption>02 · Review queue</figcaption>
+              </figure>
+              <figure class="shot">
+                <div class="shot__slot" aria-hidden="true"><span>1200 × 900</span></div>
+                <figcaption>03 · Audit trail</figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+
+        <p class="stamp" data-fill="stamp">Shipped 2025</p>
+      </div>
+    </section>
+
+    <!-- 4.3b Case study two. Words only, no screenshots. See PRD 8a: describing the outcome is
+         permitted, images of employer systems are not. No employer is named. -->
+    <section class="block" aria-labelledby="case-02">
+      <div class="card card--case">
+        <div class="field">
+          <p class="field__label">Case 02</p>
+          <div class="field__body">
+            <h2 id="case-02">Template building, from 16 hours to 30 minutes</h2>
+
+            <p>A marketing automation company was hand-building branded email and landing page templates for every new
+              client. Sixteen hours of manual work per onboarding.</p>
+
+            <p>I built an internal tool that generates them automatically from the client's brand assets. Build time
+              dropped to thirty minutes.</p>
+
+            <p>React, Node.js, Express, REST APIs, tested with Jest.</p>
+          </div>
+        </div>
+
+        <!-- Add the year once you have confirmed it, e.g. "Shipped 2024". The stamp must be true. -->
+        <p class="stamp">Shipped</p>
+      </div>
+    </section>
+
+    <!-- 4.4 What I do. Three items, no icons, no cards. -->
+    <section class="block" aria-labelledby="services">
+      <h2 class="visually-hidden" id="services">What I do</h2>
+      <div class="field">
+        <p class="field__label">Services</p>
+        <div class="field__body">
+          <p><strong>Internal tools.</strong> Approval flows, request forms, trackers, admin dashboards. The things a
+            spreadsheet and a group chat are currently doing badly.</p>
+
+          <p><strong>Sensitive data, handled properly.</strong> Role-based access, audit trails, retention rules. If the
+            data matters, the controls matter.</p>
+
+          <p><strong>Overflow development for agencies.</strong> White label, working to your spec and your deadline.
+            Your client never needs to know I exist.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4.5 How I work. -->
+    <section class="block" aria-labelledby="terms">
+      <h2 class="visually-hidden" id="terms">How I work</h2>
+      <div class="field">
+        <p class="field__label">Terms</p>
+        <div class="field__body">
+          <p>Fixed price, agreed before I start, so there are no surprises halfway through.</p>
+          <p>Ongoing hosting, support and small changes available afterwards, so you are not left with software nobody
+            can maintain.</p>
+        </div>
+      </div>
+      <div class="field field--rule">
+        <p class="field__label">Stack</p>
+        <div class="field__body">
+          <p class="mono-line">React · TypeScript · Node · Supabase · Postgres</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4.5b Other work. Horizontal strip, not a carousel. All cards in the DOM. -->
+    <section class="block" aria-labelledby="also">
+      <h2 class="visually-hidden" id="also">Other work</h2>
+      <div class="field">
+        <p class="field__label">Also</p>
+        <div class="field__body">
+          <p class="hint">Scroll sideways, or use the arrow keys.</p>
+        </div>
+      </div>
+
+      <!--
+        REPLACE THESE FOUR CARDS with real projects. Three to six, no more.
+        Each card is: <h3> title, one line of description, one mono stack line.
+        Keep it to one line each. The two case studies above are what sell; this strip
+        only shows breadth. If it starts competing for attention, it is too prominent.
+      -->
+      <ul class="strip" role="list">
+        <li class="strip__card" tabindex="0">
+          <h3>Placeholder one</h3>
+          <p>One line saying what it does and who it was for. Replace this.</p>
+          <p class="strip__stack">React · Node</p>
+        </li>
+        <li class="strip__card" tabindex="0">
+          <h3>Placeholder two</h3>
+          <p>One line saying what it does and who it was for. Replace this.</p>
+          <p class="strip__stack">TypeScript · Postgres</p>
+        </li>
+        <li class="strip__card" tabindex="0">
+          <h3>Placeholder three</h3>
+          <p>One line saying what it does and who it was for. Replace this.</p>
+          <p class="strip__stack">Supabase · React</p>
+        </li>
+        <li class="strip__card" tabindex="0">
+          <h3>Placeholder four</h3>
+          <p>One line saying what it does and who it was for. Replace this.</p>
+          <p class="strip__stack">Node · Express</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 4.6 Contact. Netlify Forms, no backend. -->
+    <section class="block" id="contact" aria-labelledby="enquiry">
+      <div class="card">
+        <div class="field">
+          <p class="field__label">Enquiry</p>
+          <div class="field__body">
+            <h2 id="enquiry">Get in touch</h2>
+            <p>Email <a href="mailto:11yekinie@gmail.com">11yekinie@gmail.com</a>, or use the form. Tell me what is
+              going wrong and I will tell you whether I can help.</p>
+          </div>
+        </div>
+
+        <form class="form" name="enquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field"
+          action="/thanks.html">
+          <input type="hidden" name="form-name" value="enquiry">
+          <p class="visually-hidden" aria-hidden="true">
+            <label>Leave this field empty: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+          </p>
+
+          <div class="field field--rule">
+            <label class="field__label" for="f-name">Name</label>
+            <div class="field__body">
+              <input id="f-name" name="name" type="text" autocomplete="name" required>
+            </div>
+          </div>
+
+          <div class="field field--rule">
+            <label class="field__label" for="f-email">Email</label>
+            <div class="field__body">
+              <input id="f-email" name="email" type="email" autocomplete="email" required>
+            </div>
+          </div>
+
+          <div class="field field--rule">
+            <label class="field__label" for="f-budget">Budget</label>
+            <div class="field__body">
+              <select id="f-budget" name="budget" required>
+                <option value="">Select one</option>
+                <option>Under £1,000</option>
+                <option>£1,000 to £3,000</option>
+                <option>£3,000 plus</option>
+                <option>Not sure yet</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field field--rule">
+            <label class="field__label" for="f-message">Message</label>
+            <div class="field__body">
+              <textarea id="f-message" name="message" rows="5" required></textarea>
+            </div>
+          </div>
+
+          <div class="field field--rule">
+            <span class="field__label" aria-hidden="true">Submit</span>
+            <div class="field__body">
+              <button class="button" type="submit">Send enquiry</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="field">
+      <p class="field__label">End</p>
+      <div class="field__body">
+        <p>© 2026 Esther Yekini</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Work strip: arrow-key navigation between cards, and pointer dragging.
+    // Progressive enhancement only. Without JS the strip still scrolls natively
+    // and every card is already in the DOM and reachable by Tab.
+    (function () {
+      var strip = document.querySelector('.strip');
+      if (!strip) return;
+      var cards = Array.prototype.slice.call(strip.querySelectorAll('.strip__card'));
+
+      strip.addEventListener('keydown', function (e) {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        var i = cards.indexOf(document.activeElement);
+        if (i === -1) return;
+        var next = cards[i + (e.key === 'ArrowRight' ? 1 : -1)];
+        if (!next) return;
+        e.preventDefault();
+        next.focus();
+      });
+
+      var down = false, startX = 0, startScroll = 0, moved = 0;
+      strip.addEventListener('pointerdown', function (e) {
+        if (e.pointerType === 'touch') return; // native touch scrolling is better
+        down = true; moved = 0;
+        startX = e.clientX;
+        startScroll = strip.scrollLeft;
+      });
+      strip.addEventListener('pointermove', function (e) {
+        if (!down) return;
+        var dx = e.clientX - startX;
+        moved = Math.abs(dx);
+        if (moved > 3) {
+          strip.setPointerCapture(e.pointerId);
+          strip.classList.add('is-dragging');
+          strip.scrollLeft = startScroll - dx;
+        }
+      });
+      ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (type) {
+        strip.addEventListener(type, function () {
+          down = false;
+          strip.classList.remove('is-dragging');
+        });
+      });
+    })();
+  </script>
 </body>
 
 </html>

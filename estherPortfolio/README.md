@@ -1,12 +1,50 @@
-# React + Vite
+# estheryekini.com
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+One page, hand written static HTML. No build step, no framework, no dependencies.
+Deployed to Netlify from this folder.
 
-Currently, two official plugins are available:
+```
+index.html    the page
+thanks.html   form success page
+styles.css    all styling, including the hero fill animation
+og.png        1200x630 Open Graph image
+favicon.svg
+fonts/        Bricolage Grotesque, Public Sans, IBM Plex Mono. Latin subset, woff2.
+netlify.toml  publish = "." , no build command
+```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Editing
 
-## Expanding the ESLint configuration
+Open `index.html` in a text editor and change the text. There is nothing to compile.
+To preview locally:
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+python3 -m http.server 8000
+```
+
+Then open <http://localhost:8000>.
+
+## Things left to fill in
+
+Search `index.html` for these:
+
+- **Screenshots.** Three placeholder slots in case study one. Replace each
+  `<div class="shot__slot">` with an `<img>`. Dummy data only, no real payee names,
+  amounts, references, or bank details.
+- **Work strip.** Four placeholder cards. Replace with three to six real projects.
+- **Case study two stamp.** Reads `Shipped`. Add the year once confirmed.
+
+## Deploying
+
+Netlify builds from the `estherPortfolio` base directory and publishes it as-is.
+Pushing to `main` deploys.
+
+The contact form uses Netlify Forms: it works because `data-netlify="true"` and the
+hidden `form-name` input are present in the static HTML. Submissions appear under
+Forms in the Netlify dashboard. Turn on email notifications there, then test the form
+once end to end before sending the link to anyone.
+
+## The old site
+
+The previous React and Contentful portfolio is on the `archive/react-portfolio`
+branch, including the uncommitted work in progress at the time.
