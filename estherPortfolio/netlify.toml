@@ -1,21 +1,30 @@
+# Static site. Hand written HTML, no build step, no framework.
+# Netlify's base directory for this site is `estherPortfolio`, so `.` is this folder.
+
 [build]
-  command = "npm run build"
-  publish = "dist"
+  publish = "."
+  # Explicit no-op. Without this, Netlify falls back to the build command still
+  # set in the dashboard (`npm run build`), which would fail: there is no
+  # package.json any more. Do not remove without clearing that setting first.
+  command = "echo 'Static site. Nothing to build.'"
 
-# Serve all .js files with the correct MIME type.
+# No redirects. The old SPA catch-all (/* -> /index.html 200) has been removed:
+# it would swallow real 404s and interfere with Netlify Forms.
+
 [[headers]]
-  for = "/*.js"
+  for = "/*"
   [headers.values]
-    Content-Type = "text/javascript"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
 
-# Serve all .jsx files with the correct MIME type.
 [[headers]]
-  for = "/*.jsx"
+  for = "/fonts/*"
   [headers.values]
-    Content-Type = "text/javascript"
+    Cache-Control = "public, max-age=31536000, immutable"
 
-# For single-page applications, redirect all paths to index.html.
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+[[headers]]
+  for = "/styles.css"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
