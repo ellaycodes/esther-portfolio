@@ -9,7 +9,7 @@ thanks.html   form success page
 styles.css    all styling, including the hero fill animation
 og.png        1200x630 Open Graph image
 favicon.svg
-fonts/        Bricolage Grotesque, Public Sans, IBM Plex Mono. Latin subset, woff2.
+fonts/        Satoshi (Fontshare), Public Sans, IBM Plex Mono. Self hosted woff2.
 netlify.toml  publish = "." , no build command
 ```
 
@@ -33,6 +33,9 @@ Search `index.html` for these:
   amounts, references, or bank details.
 - **Work strip.** Four placeholder cards. Replace with three to six real projects.
 - **Case study two stamp.** Reads `Shipped`. Add the year once confirmed.
+- **Hero artefact.** The white payment-request card in the hero is illustration.
+  Every value on it is invented. Never put a real payee, amount, reference or
+  timestamp there.
 
 ## Deploying
 
