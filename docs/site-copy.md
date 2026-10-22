@@ -20,7 +20,7 @@ Nav: Proof / How it works / Questions / Get in touch
 I build charities their version of the tools they pay for every month. You pay once, it's yours forever.
 
 - Button: **Tell me what you pay for** (jumps to the contact form)
-- Link: **See the 30-branch build** (opens https://payment-requests-demo.netlify.app/admin in a new tab)
+- Link: **Try the live demo** (opens https://payment-requests-demo.netlify.app/admin in a new tab)
 
 ## Calculator (receipt, beside the headline)
 
@@ -42,18 +42,20 @@ Example figures. Put in yours.
 
 ## Proof
 
-## Payment approvals for a 30-branch charity
+## Payment approvals for a national charity
 
 Live since July 2026 and used every day.
 
-A church charity with 30 branches across England needed every branch to send payment requests to one finance team, with more than one person signing off. The form tool they'd outgrown charges around £2,000 a year for that on its Enterprise plan. **[CHECK the £2,000 figure against Jotform's current pricing]**
+A national church charity needed every branch to send payment requests to one central finance team, with more than one person signing off. The form tool they'd outgrown charges around £2,000 a year for that on its Enterprise plan. **[CHECK the £2,000 figure against Jotform's current pricing]**
 
 I built them their own instead. It does more than the form tool did, and there is no subscription.
 
+It's built to grow with them. More branches, more approvers, more countries and more requests never mean a bigger bill.
+
 | | |
 |---|---|
-| Branches using it | 30 |
-| Payment requests a day | about 15 |
+| Branches using it | Every one |
+| Built to handle | Thousands of requests a day |
 | Enterprise plan they'd have needed | ~£2,000 a year **[CHECK]** |
 | Subscription fees now | £0 |
 
@@ -65,7 +67,7 @@ Features
 - Bank details are visible only to the right roles and deleted 90 days after payment
 - PDF exports for your records
 
-Review queue illustration (demo data only), captioned: Demo data. Try the live demo (link to the demo).
+Review queue illustration for a central finance team, To review (1,284), branches Lagos, Dublin, Glasgow, Leeds. All invented demo data, captioned: Demo data, showing 4 of 1,284 waiting. Try the live demo (link to the demo).
 
 **[TODO]** Quote from the charity's finance lead. Two real sentences on what changed. It's commented out in the HTML, ready to switch on.
 
@@ -116,7 +118,7 @@ Access is set by role, every action is logged, and sensitive data can delete its
 
 I'm Esther Yekini, an engineering lead who has spent her whole career in tech, from Starling Bank to leading an engineering team at a UK software company.
 
-I've built tools that cut a 16-hour process down to 30 minutes, and a payment system now running across 30 branches of a national charity. I've also seen from the inside how much organisations pay for software they barely use. Cutting that waste is what I do.
+I've built tools that cut a 16-hour process down to 30 minutes, and a payment system now running across every branch of a national charity. I've also seen from the inside how much organisations pay for software they barely use. Cutting that waste is what I do.
 
 You work directly with me, the person building it. No account managers, no junior handoffs. A fixed price, plain English, and software you own outright.
 
@@ -134,7 +136,7 @@ Form fields: Your name (required) / Email (required) / Charity (required) / Tool
 
 Button: **Send enquiry**
 
-Below the button: Fixed price, agreed up front. Most builds cost £2,000 to £4,000.
+No prices are shown anywhere on the site on purpose, so smaller jobs still get in touch.
 
 ## Thanks page (after the form is sent)
 

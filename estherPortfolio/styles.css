@@ -118,8 +118,8 @@ h2 { font-weight: 800; font-size: clamp(1.8rem, 3.6vw, 2.6rem); line-height: 1.0
 .app-tabs { display: flex; gap: 18px; padding: 10px 16px 0; border-bottom: 1px solid var(--rule); color: var(--ink-soft); }
 .app-tabs b { color: var(--ink); border-bottom: 2px solid var(--ink); padding-bottom: 8px; font-weight: 600; }
 .app-scroll { overflow-x: auto; }
-.app table { width: 100%; min-width: 520px; border-collapse: collapse; }
-.app td { padding: 11px 16px; border-bottom: 1px solid #EEEFEA; }
+.app table { width: 100%; min-width: 600px; border-collapse: collapse; }
+.app td { padding: 11px 16px; border-bottom: 1px solid #EEEFEA; white-space: nowrap; }
 .app td.num { text-align: right; }
 .pill { display: inline-block; font-size: .76rem; padding: 2px 8px; border-radius: 20px; white-space: nowrap; }
 .pill.ok { background: var(--green-tint); color: var(--green); }
@@ -168,6 +168,10 @@ h2 { font-weight: 800; font-size: clamp(1.8rem, 3.6vw, 2.6rem); line-height: 1.0
   .hero { padding-block: 40px 56px; }
   section { padding-block: 52px; }
   .features, .two, .form .pair { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .ledger .row { display: grid; gap: 2px; }
+  .ledger .row .lead { display: none; }
 }
 @media (max-width: 420px) {
   .inputs { grid-template-columns: 1fr; }

@@ -7,8 +7,8 @@ Hand this file and `site-copy.md` to any AI or developer working on the site. It
 One job. Get a charity to send an enquiry about replacing a software subscription they pay for monthly with a tool Esther builds once and hands over.
 
 - **Audience.** Charity CEOs, finance leads and trustees. Not technical. Under budget pressure. Wary of tech suppliers overselling.
-- **Offer.** Stop renting your software. Own it. One-off fixed fee, typically £2,000 to £4,000. Hosting is often free, worst case around £10 a month. Handover docs plus 3 months support included. Optional support after that, always cheaper than the old subscription.
-- **Proof.** A payment approval system replacing Jotform for a 30-branch church charity, live since July 2026. Keep the client anonymous everywhere.
+- **Offer.** Stop renting your software. Own it. One-off fixed fee. Prices are deliberately not shown on the site so smaller jobs still enquire. Hosting is often free, worst case around £10 a month. Handover docs plus 3 months support included. Optional support after that, always cheaper than the old subscription.
+- **Proof.** A payment approval system replacing Jotform for a national church charity, live since July 2026. Keep the client anonymous everywhere. Talk about scale as capability (every branch, built to handle thousands of requests a day, grows without a bigger bill), never as small fixed counts.
 - **Every visitor arrives from a cold email** linking to the site, so the first screen has to make the offer clear in five seconds.
 
 ## Design direction: "Ledger"
@@ -65,12 +65,12 @@ The site is deliberately light only. It's meant to look like paper.
 
 1. Header with name, tagline, anchor nav
 2. Hero. Headline, subline, two calls to action on the left. Receipt calculator on the right.
-3. `#proof` Case study, ledger of facts, feature list, app illustration with demo data
+3. `#proof` Case study, ledger of facts, feature list, app illustration with invented demo data showing a large multi-country queue
 4. `#rebuild` What I can rebuild vs keep paying for
 5. `#how` Five numbered steps (a real sequence, so numbering is justified)
 6. `#questions` FAQ
 7. `#about` Who you'd be working with
-8. `#contact` Netlify form, price line under the button
+8. `#contact` Netlify form
 9. Footer
 
 ### Calculator
