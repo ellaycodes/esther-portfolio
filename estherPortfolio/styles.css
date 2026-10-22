@@ -1,858 +1,179 @@
-/* -------------------------------------------------------------------------
-   Esther Yekini — services page
-   Built to the styling doc, which supersedes section 4a of the PRD.
-
-   Direction: modern SaaS. Saturated colour as surface rather than accent,
-   large soft-cornered cards, layered depth, display type at real scale.
-   Retained from the previous direction: the field-label grid, the mono
-   labels, and the stamp.
-   ---------------------------------------------------------------------- */
-
-/* --- Fonts. Self hosted, two weights per face. --------------------------- */
-
-@font-face {
-  font-family: 'Satoshi';
-  src: url('/fonts/satoshi-700.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Satoshi';
-  src: url('/fonts/satoshi-900.woff2') format('woff2');
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Public Sans';
-  src: url('/fonts/public-sans-400.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Public Sans';
-  src: url('/fonts/public-sans-600.woff2') format('woff2');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'IBM Plex Mono';
-  src: url('/fonts/ibm-plex-mono-400.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'IBM Plex Mono';
-  src: url('/fonts/ibm-plex-mono-600.woff2') format('woff2');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* --- Tokens -------------------------------------------------------------- */
+/*
+  estheryekini.com, "Ledger" direction.
+  Printed paper, black ink, one deep green accent. Money figures in a monospace face.
+  The savings calculator in the hero is styled as a till receipt.
+  Single light theme on purpose: it is meant to look like paper.
+*/
 
 :root {
-  /* Ink */
-  --ink: #150F2E;
-  --ink-soft: #5B5478;
-
-  /* Violet, the surface colour */
-  --violet-900: #2A1A5E;
-  --violet-600: #4B2FD6;
-  --violet-500: #6D4AFF;
-  --violet-100: #E9E4FF;
-
-  /* Signal, used once per case study, on the stamp */
-  --signal: #FF7A59;
-  --signal-ink: #3D1005;
-
-  /* Page */
-  --paper: #F6F4FB;
-  --surface: #FFFFFF;
-  --hairline: #E4E0F0;
-
-  /* Shape */
-  --radius-card: 24px;
-  --radius-sm: 12px;
-  --radius-pill: 999px;
-
-  /* Depth */
-  --shadow-card: 0 20px 50px -20px rgba(21, 15, 46, 0.32);
-  --shadow-hero: 0 30px 70px -25px rgba(42, 26, 94, 0.55);
-
-  /* Layout */
-  --page-max: 84rem;
-  --measure: 34rem;
-  --bleed: 0.75rem;
-  --section: clamp(4rem, 9vw, 7rem);
-  --label-width: 8.5rem;
-  --pad: clamp(1rem, 4vw, 2.5rem);
-  --gutter: 2rem;
-
-  /* Type. The display fallback is sans, never serif. */
-  --display: 'Satoshi', 'Helvetica Neue', Arial, sans-serif;
-  --body: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --page: #EDEEE9;
+  --slip: #FFFFFF;
+  --ink: #1B1F1C;
+  --ink-soft: #5A615B;
+  --rule: #C9CBC2;
+  --green: #1E5B40;
+  --green-tint: #E3EEE7;
+  --red: #A8352B;
+  --navy: #1E2A3A;
+  --f-sans: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --f-fig: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: light;
 }
 
-/* --- Reset, minimal ------------------------------------------------------ */
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html {
-  -webkit-text-size-adjust: 100%;
-}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 body {
   margin: 0;
-  background: var(--paper);
+  background: var(--page);
   color: var(--ink);
-  font-family: var(--body);
-  font-size: 1.0625rem;
-  line-height: 1.6;
+  font-family: var(--f-sans);
+  font-size: 17px;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
-}
-
-h1,
-h2,
-h3 {
-  font-family: var(--display);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  margin: 0;
-  text-wrap: balance;
-}
-
-p {
-  margin: 0 0 1rem;
-}
-
-p:last-child {
-  margin-bottom: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.18em;
-}
-
-a:hover {
-  text-decoration-color: var(--violet-500);
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* --- Focus. 2px violet at 3px offset, on everything interactive. --------- */
-
-:focus-visible {
-  outline: 2px solid var(--violet-500);
-  outline-offset: 3px;
-  border-radius: var(--radius-sm);
-}
-
-.hero :focus-visible {
-  outline-color: #fff;
-}
-
-.skip-link {
-  position: absolute;
-  left: -9999px;
-  top: 0;
-  background: var(--ink);
-  color: #fff;
-  padding: 0.75rem 1rem;
-  border-radius: 0 0 var(--radius-sm) 0;
-  font-size: 0.9375rem;
-  z-index: 10;
-}
-
-.skip-link:focus {
-  left: 0;
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  white-space: nowrap;
-  border: 0;
-}
-
-/* --- The field grid. Retained, and still the organising logic. ----------- */
-
-.field {
-  display: grid;
-  grid-template-columns: var(--label-width) minmax(0, 1fr);
-  column-gap: var(--gutter);
-  align-items: baseline;
-  padding: 1.15rem 0;
-}
-
-.field--rule,
-.fields .field+.field {
-  border-top: 1px solid var(--hairline);
-}
-
-.field__label {
-  font-family: var(--mono);
-  font-size: 0.6875rem;
-  font-weight: 600;
-  line-height: 1.5;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  margin: 0;
-  padding-top: 0.35em;
-}
-
-.field__value,
-.field__body {
-  margin: 0;
-  min-width: 0;
-}
-
-/* Surfaces get wide. Text does not. */
-.field__body {
-  max-width: var(--measure);
-}
-
-/* --- Page container. Wide page, narrow measure. -------------------------- */
-
-.block,
-.masthead__inner,
-.block__inner,
-.footer__inner {
-  max-width: var(--page-max);
-  margin-inline: auto;
-  padding-inline: var(--pad);
-}
-
-/* Vertical rhythm between major blocks. */
-main>*+* {
-  margin-top: var(--section);
-}
-
-/* --- Masthead. Transparent, no border, no uppercase. --------------------- */
-
-.masthead__inner {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.15rem 1.25rem;
-  justify-content: space-between;
-  align-items: baseline;
-  padding-block: 1.5rem;
-}
-
-.masthead__name {
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 1rem;
-  letter-spacing: -0.01em;
-  margin: 0;
-}
-
-.masthead__role {
-  font-size: 0.875rem;
-  color: var(--ink-soft);
-  margin: 0;
-}
-
-/* --- Structural device. Dotted rule with a plus at each end. ------------- */
-
-/* Sized to the content column rather than the container, so the dashed line
-   starts and ends exactly where the text does. */
-.rule {
-  border: 0;
-  border-top: 1px dashed var(--hairline);
-  position: relative;
-  width: min(calc(var(--page-max) - 2 * var(--pad)), calc(100% - 2 * var(--pad)));
-  margin: var(--section) auto;
-}
-
-.rule::before,
-.rule::after {
-  content: "+";
-  position: absolute;
-  top: -0.7em;
-  color: var(--ink-soft);
-  font-family: var(--mono);
-  font-size: 0.875rem;
-  line-height: 1;
-}
-
-.rule::before {
-  left: -0.3em;
-}
-
-.rule::after {
-  right: -0.3em;
-}
-
-/* --- Hero. Full-bleed inset card, the one saturated surface. ------------- */
-
-.hero {
-  max-width: none;
-  padding: var(--bleed);
-  margin-top: 0;
-}
-
-.hero .card {
-  background: linear-gradient(135deg, var(--violet-900) 0%, var(--violet-600) 100%);
-  color: #fff;
-  border: 0;
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-hero);
-  min-height: min(86vh, 780px);
-  display: grid;
-  align-content: center;
-  gap: 3rem;
-  /* Vertical padding is the tighter of the doc's two figures for this card, so
-     the whole hero, button included, clears the fold on a 900px window. */
-  padding: clamp(1.75rem, 3.5vw, 3rem) clamp(2rem, 6vw, 5rem);
-}
-
-.hero .field {
-  padding-block: 0.8rem;
-}
-
-@media (min-width: 60rem) {
-  .hero .card {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-    align-items: center;
-  }
-}
-
-/* The name needs more room than --measure leaves once the label column is
-   taken out, so the hero's own field block is capped a little wider. */
-.hero .fields,
-.hero__foot {
-  max-width: 42rem;
-}
-
-.hero .field__label {
-  color: var(--violet-100);
-}
-
-.hero .fields .field+.field,
-.hero__foot {
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
-}
-
-/* Name first and largest. */
-.hero .fields .field:first-child .field__value {
-  font-family: var(--display);
-  font-weight: 900;
-  /* Doc says max 6.5rem. Capped at 5.75rem because the name wraps to two lines
-     in the hero's left column, and 6.5rem pushes the button past the fold. */
-  font-size: clamp(3.5rem, 8vw, 5.75rem);
-  line-height: 0.9;
-  letter-spacing: -0.04em;
-}
-
-/* Hero secondary values. */
-.hero .fields .field+.field .field__value {
-  font-family: var(--body);
-  font-weight: 600;
-  font-size: 1.25rem;
-}
-
-.hero h1 {
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: clamp(2rem, 5vw, 3rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-}
-
-.hero .lede {
-  font-size: 1.0625rem;
-  color: var(--violet-100);
-}
-
-/* --- The hero artefact. The only illustration on the page. --------------- */
-/*     A payment request in its approved state. All data is invented.        */
-
-.artefact {
-  display: none;
-}
-
-@media (min-width: 60rem) {
-  .artefact {
-    display: block;
-    justify-self: center;
-    width: min(100%, 25rem);
-    background: var(--surface);
-    color: var(--ink);
-    border-radius: var(--radius-sm);
-    box-shadow: var(--shadow-card);
-    padding: 1.5rem 1.5rem 1.25rem;
-    transform: rotate(2deg);
-  }
-}
-
-.artefact__ref {
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.06em;
-  color: var(--ink-soft);
-  margin: 0 0 1rem;
-}
-
-.artefact__payee {
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 1.125rem;
-  letter-spacing: -0.01em;
-  margin: 0 0 0.15rem;
-}
-
-.artefact__amount {
-  font-family: var(--display);
-  font-weight: 900;
-  font-size: 2rem;
-  letter-spacing: -0.03em;
-  margin: 0 0 1.15rem;
-}
-
-.artefact__trail {
-  list-style: none;
-  margin: 0;
-  padding: 1rem 0 0;
-  border-top: 1px dashed var(--hairline);
-  font-size: 0.875rem;
-}
-
-.artefact__trail li {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.3rem 0;
-}
-
-.artefact__trail time {
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  color: var(--ink-soft);
-  white-space: nowrap;
-}
-
-.artefact__foot {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 0.75rem;
-}
-
-/* --- Case study cards ---------------------------------------------------- */
-
-.card {
-  background: var(--surface);
-  border: 0;
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-card);
-  padding: clamp(1.75rem, 4vw, 2.5rem);
-}
-
-.card--case .field__label {
-  color: var(--violet-600);
-}
-
-.card--case h2 {
-  font-size: clamp(1.6rem, 4vw, 2.25rem);
-  margin-bottom: 1.15rem;
-}
-
-/* The body of a case study is the wide surface: text left, shots right. */
-.card--case .field__body {
-  max-width: none;
-}
-
-.case__text {
-  max-width: var(--measure);
-}
-
-@media (min-width: 56rem) {
-  .card--case .field__body {
-    display: grid;
-    grid-template-columns: minmax(0, var(--measure)) minmax(0, 1fr);
-    gap: 2.5rem;
-    align-items: start;
-  }
-}
-
-.list {
-  margin: 0 0 1rem;
-  padding-left: 1.1rem;
-}
-
-.list li {
-  margin-bottom: 0.4rem;
-}
-
-.list li::marker {
-  color: var(--violet-600);
-}
-
-/* Screenshot slots. Replace the .shot__slot divs with <img>. */
-
-.shots {
-  display: grid;
-  gap: 1rem;
-  margin-top: 1.5rem;
-}
-
-@media (min-width: 56rem) {
-  .shots {
-    margin-top: 0;
-  }
-}
-
-.shot {
-  margin: 0;
-}
-
-.shot__slot {
-  aspect-ratio: 4 / 3;
-  background: var(--paper);
-  border: 1px dashed var(--hairline);
-  border-radius: var(--radius-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.875rem;
-  color: var(--ink-soft);
-}
-
-.shot img {
-  border-radius: var(--radius-sm);
-}
-
-.shot figcaption {
-  font-size: 0.875rem;
-  color: var(--ink-soft);
-  margin-top: 0.5rem;
-}
-
-/* --- The stamp. Signal colour, once per case study, nowhere else. -------- */
-
-.stamp {
-  display: block;
-  width: fit-content;
-  margin: 2rem 0 0 auto;
-  background: var(--signal);
-  color: var(--signal-ink);
-  border: 0;
-  border-radius: var(--radius-pill);
-  padding: 0.65rem 1.35rem;
-  font-family: var(--mono);
-  font-size: 0.9375rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  transform: rotate(-4deg);
-}
-
-.artefact .stamp {
-  margin: 0;
-  font-size: 0.75rem;
-  padding: 0.4rem 0.9rem;
-}
-
-/* --- How I work ---------------------------------------------------------- */
-
-.mono-line {
-  font-family: var(--mono);
-  font-size: 0.9375rem;
-}
-
-.hint {
-  font-size: 0.875rem;
-  color: var(--ink-soft);
-}
-
-/* --- Work strip. Bleeds past the container on both sides. ---------------- */
-
-.block--flush {
-  max-width: none;
-  padding-inline: 0;
-}
-
-.strip {
-  list-style: none;
-  margin: 0;
-  /* Aligns the first card with the content column, then lets the rest run
-     out to the viewport edge, so a partial card shows at each side. */
-  padding: 0.5rem max(var(--pad), calc((100% - var(--page-max)) / 2 + var(--pad))) 1.5rem;
-  display: flex;
-  gap: 1.25rem;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
-  scroll-padding-left: max(var(--pad), calc((100% - var(--page-max)) / 2 + var(--pad)));
-  scrollbar-width: thin;
-  scrollbar-color: var(--hairline) transparent;
-}
-
-.strip.is-dragging {
-  cursor: grabbing;
-  scroll-snap-type: none;
-  user-select: none;
-}
-
-.strip__card {
-  flex: 0 0 auto;
-  width: min(19rem, 74vw);
-  scroll-snap-align: start;
-  background: var(--surface);
-  border: 0;
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-card);
-  padding: 1.5rem;
-}
-
-.strip__card h3 {
-  font-size: 1.125rem;
-  margin-bottom: 0.5rem;
-}
-
-.strip__card p {
-  margin-bottom: 0.6rem;
-  font-size: 0.9375rem;
-}
-
-.strip__stack {
-  font-size: 0.875rem;
-  color: var(--ink-soft);
-  margin-bottom: 0 !important;
-}
-
-/* --- Contact ------------------------------------------------------------- */
-
-.form {
-  margin-top: 0.25rem;
-}
-
-@media (min-width: 40rem) {
-  .form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 2rem;
-  }
-
-  .form>.field {
-    grid-column: 1 / -1;
-  }
-
-  .form>.field--half {
-    grid-column: auto;
-  }
-
-  /* Side by side fields stack their own label above the value, since the
-     two column label grid does not fit in half the width. */
-  .form>.field--half {
-    grid-template-columns: 1fr;
-    row-gap: 0.4rem;
-  }
-
-  .form>.field--half .field__label {
-    padding-top: 0;
-  }
-}
-
-input[type="text"],
-input[type="email"],
-select,
-textarea {
-  width: 100%;
-  font-family: var(--body);
-  font-size: 1rem;
-  line-height: 1.5;
-  color: var(--ink);
-  background: var(--surface);
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius-sm);
-  padding: 0.7rem 0.85rem;
-  appearance: none;
-}
-
-textarea {
-  resize: vertical;
-}
-
-select {
-  background-image:
-    linear-gradient(45deg, transparent 50%, var(--ink-soft) 50%),
-    linear-gradient(135deg, var(--ink-soft) 50%, transparent 50%);
-  background-position: right 1.05rem center, right 0.7rem center;
-  background-size: 6px 6px, 6px 6px;
-  background-repeat: no-repeat;
-  padding-right: 2.25rem;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-  border-color: var(--violet-500);
-}
-
-/* --- Button. One primary, and the form submit matches it. ---------------- */
-
-.button {
-  display: inline-block;
-  font-family: var(--body);
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0;
-  text-transform: none;
-  color: #fff;
-  background: var(--violet-500);
-  border: 0;
-  border-radius: var(--radius-pill);
-  padding: 0.9rem 1.85rem;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.button:hover {
-  background: var(--violet-600);
-}
-
-/* --- Footer. Plain text on the page background. -------------------------- */
-
-.footer__inner {
-  padding-block: 2rem 3rem;
-  font-size: 0.875rem;
-  color: var(--ink-soft);
-}
-
-/* --- Motion. The hero form fills itself in, once, on load. --------------- */
-/*     Opacity and transform only. Nothing else on the page animates.        */
-
-@keyframes fill-label {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fill-value {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fill-stamp {
-  from {
-    opacity: 0;
-    transform: rotate(-4deg) scale(1.06);
-  }
-
-  to {
-    opacity: 1;
-    transform: rotate(-4deg) scale(1);
-  }
-}
-
-.hero .field__label,
-.hero__foot .field__body,
-.artefact {
-  animation: fill-label 200ms ease-out both;
-}
-
-.hero [data-fill] {
-  animation: fill-value 260ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
-}
-
-.hero [data-fill="1"] {
-  animation-delay: 240ms;
-}
-
-.hero [data-fill="2"] {
-  animation-delay: 330ms;
-}
-
-.hero [data-fill="3"] {
-  animation-delay: 420ms;
-}
-
-.hero [data-fill="4"] {
-  animation-delay: 510ms;
-}
-
-[data-fill="stamp"] {
-  animation: fill-stamp 260ms cubic-bezier(0.22, 0.61, 0.36, 1) 880ms both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-
-  .hero .field__label,
-  .hero__foot .field__body,
-  .artefact,
-  .hero [data-fill],
-  [data-fill="stamp"] {
-    animation: none;
-  }
-
-  * {
-    scroll-behavior: auto !important;
-  }
-}
-
-/* --- Responsive. The field grid stacks below 600px. ---------------------- */
-
-@media (max-width: 600px) {
-  body {
-    font-size: 1rem;
-  }
-
-  .field {
-    grid-template-columns: 1fr;
-    row-gap: 0.35rem;
-    padding: 1rem 0;
-  }
-
-  .field__label {
-    padding-top: 0;
-  }
-
-  .hero .card {
-    min-height: 0;
-    gap: 2rem;
-  }
-
-  .stamp {
-    margin-top: 1.5rem;
-  }
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+img { max-width: 100%; height: auto; }
+.wrap { max-width: 1080px; margin: 0 auto; }
+a { color: var(--ink); }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+p { margin: 0; }
+.fig { font-family: var(--f-fig); font-variant-numeric: tabular-nums; }
+
+.skip-link { position: absolute; left: 16px; top: -60px; background: var(--ink); color: var(--slip); padding: 10px 14px; z-index: 10; }
+.skip-link:focus { top: 12px; }
+
+/* Header */
+.top { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px 24px; padding-block: 24px; border-bottom: 1px solid var(--rule); }
+.brand { font-weight: 800; font-size: 1.05rem; }
+.brand span { display: block; font-weight: 400; color: var(--ink-soft); font-size: .88rem; }
+.top nav { display: flex; gap: 20px; flex-wrap: wrap; font-size: .92rem; }
+.top nav a { text-decoration: none; color: var(--ink-soft); }
+.top nav a:hover { color: var(--ink); text-decoration: underline; }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: start; padding-block: 64px 80px; }
+.hero > * { min-width: 0; }
+.hero h1 { font-weight: 800; font-size: clamp(2.7rem, 6.4vw, 5rem); line-height: .98; letter-spacing: -.025em; }
+.lede { margin-top: 24px; font-size: 1.25rem; max-width: 30ch; }
+.actions { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; }
+.btn { display: inline-block; background: var(--ink); color: var(--slip); padding: 14px 22px; border-radius: 3px; text-decoration: none; border: 0; font: inherit; font-weight: 600; cursor: pointer; }
+.btn:hover { background: var(--green); }
+.price-note { color: var(--ink-soft); font-size: .95rem; }
+
+/* Receipt calculator */
+.slip { position: relative; background: var(--slip); padding: 28px 26px 30px; box-shadow: 0 1px 0 var(--rule), 0 18px 30px -24px rgba(27, 31, 28, .35); margin-bottom: 14px; }
+.slip::after { content: ""; position: absolute; left: 0; right: 0; bottom: -12px; height: 12px;
+  background: linear-gradient(135deg, var(--slip) 50%, transparent 50%) 0 0 / 12px 12px repeat-x,
+              linear-gradient(225deg, var(--slip) 50%, transparent 50%) 0 0 / 12px 12px repeat-x; }
+.slip-head { text-align: center; border-bottom: 1px dashed var(--rule); padding-bottom: 14px; }
+.slip-head strong { display: block; font-size: 1.05rem; }
+.slip-head .fig { font-size: .8rem; color: var(--ink-soft); }
+.inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 14px; padding-block: 16px; border-bottom: 1px dashed var(--rule); }
+.inputs label { display: grid; gap: 4px; font-size: .82rem; color: var(--ink-soft); }
+.inputs input { font-family: var(--f-fig); font-size: 1rem; padding: 7px 9px; border: 1px solid var(--rule); border-radius: 2px; background: var(--slip); color: var(--ink); width: 100%; min-width: 0; }
+.group { padding-top: 14px; }
+.group h3 { font-size: .82rem; font-weight: 600; letter-spacing: .04em; color: var(--ink-soft); margin-bottom: 6px; }
+.row { display: flex; align-items: baseline; gap: 8px; font-size: .95rem; padding-block: 3px; }
+.row .lead { flex: 1; border-bottom: 1px dotted var(--rule); min-width: 12px; transform: translateY(-5px); }
+.row .fig { white-space: nowrap; }
+.row.total { font-weight: 600; }
+.rent .fig { color: var(--red); }
+.keep { margin-top: 16px; padding: 14px; background: var(--green-tint); border-radius: 2px; }
+.keep .row { font-size: 1.05rem; }
+.keep .big { font-family: var(--f-fig); font-variant-numeric: tabular-nums; font-size: 1.9rem; font-weight: 500; color: var(--green); }
+.keep p { font-size: .9rem; margin-top: 4px; }
+.slip-foot { margin-top: 14px; text-align: center; font-size: .8rem; color: var(--ink-soft); }
+
+/* Sections */
+section { padding-block: 72px; border-top: 1px solid var(--rule); }
+.split { display: grid; grid-template-columns: 1fr 1.25fr; gap: 56px; }
+.split > * { min-width: 0; }
+h2 { font-weight: 800; font-size: clamp(1.8rem, 3.6vw, 2.6rem); line-height: 1.05; letter-spacing: -.015em; }
+.body p { max-width: 62ch; }
+.body p + p { margin-top: 14px; }
+.intro { margin-top: 18px; max-width: 46ch; color: var(--ink-soft); }
+
+.ledger { background: var(--slip); padding: 22px 24px; margin-top: 24px; }
+.ledger .row { font-size: 1.02rem; padding-block: 7px; }
+.ledger .row .fig { font-size: 1.1rem; }
+.ledger .row .fig.green { color: var(--green); font-weight: 500; }
+
+.features { margin: 28px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 32px; }
+.features li { padding-left: 22px; position: relative; }
+.features li::before { content: ""; position: absolute; left: 0; top: .62em; width: 10px; height: 2px; background: var(--green); }
+
+.quote { margin: 32px 0 0; padding: 22px 24px; background: var(--slip); border-left: 3px solid var(--green); }
+.quote p { font-size: 1.15rem; max-width: 60ch; }
+.quote footer { margin-top: 10px; color: var(--ink-soft); font-size: .92rem; }
+
+/* Illustration of the review queue */
+.app { margin-top: 32px; background: var(--slip); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; font-size: .88rem; }
+.app-bar { display: flex; justify-content: space-between; gap: 12px; padding: 12px 16px; background: var(--navy); color: #F3F5F8; flex-wrap: wrap; }
+.app-bar span { opacity: .75; }
+.app-tabs { display: flex; gap: 18px; padding: 10px 16px 0; border-bottom: 1px solid var(--rule); color: var(--ink-soft); }
+.app-tabs b { color: var(--ink); border-bottom: 2px solid var(--ink); padding-bottom: 8px; font-weight: 600; }
+.app-scroll { overflow-x: auto; }
+.app table { width: 100%; min-width: 600px; border-collapse: collapse; }
+.app td { padding: 11px 16px; border-bottom: 1px solid #EEEFEA; white-space: nowrap; }
+.app td.num { text-align: right; }
+.pill { display: inline-block; font-size: .76rem; padding: 2px 8px; border-radius: 20px; white-space: nowrap; }
+.pill.ok { background: var(--green-tint); color: var(--green); }
+.pill.wait { background: #FBF0D9; color: #7A5410; }
+.pill.new { background: #EAEDF2; color: #33415A; }
+.app-cap { padding: 10px 16px; color: var(--ink-soft); font-size: .82rem; background: #F7F7F4; }
+
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; }
+.two > div { background: var(--slip); padding: 22px 24px; min-width: 0; }
+.two h3 { font-size: 1.1rem; margin-bottom: 10px; }
+.two ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+.two .no h3 { color: var(--red); }
+.two .no p { margin-top: 12px; color: var(--ink-soft); font-size: .95rem; }
+
+.steps { margin: 32px 0 0; padding: 0; list-style: none; counter-reset: s; }
+.steps li { display: grid; grid-template-columns: 56px 1fr; gap: 16px; padding-block: 18px; border-bottom: 1px dotted var(--rule); counter-increment: s; }
+.steps li::before { content: counter(s); font-family: var(--f-fig); font-size: 1.4rem; color: var(--green); }
+.steps strong { display: block; font-size: 1.08rem; }
+.steps p { color: var(--ink-soft); max-width: 60ch; }
+
+.faq { margin: 0; display: grid; gap: 22px; }
+.faq dt { font-weight: 600; font-size: 1.08rem; }
+.faq dd { margin: 4px 0 0; color: var(--ink-soft); max-width: 60ch; }
+
+.photo { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+
+/* Contact form */
+.form { display: grid; gap: 14px; background: var(--slip); padding: 24px; }
+.form .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form label { display: grid; gap: 5px; font-size: .9rem; font-weight: 500; }
+.form input, .form textarea { font: inherit; font-size: 1rem; padding: 10px 12px; border: 1px solid var(--rule); border-radius: 2px; background: var(--slip); color: var(--ink); width: 100%; min-width: 0; }
+.form textarea { min-height: 110px; resize: vertical; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.email { margin-top: 18px; font-family: var(--f-fig); user-select: all; }
+
+.foot { padding-block: 32px 48px; border-top: 1px solid var(--rule); color: var(--ink-soft); font-size: .9rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+/* Thanks page */
+.thanks { padding-block: 96px; max-width: 56ch; }
+.thanks h1 { font-weight: 800; font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1; letter-spacing: -.02em; }
+.thanks p { margin-top: 18px; font-size: 1.15rem; }
+.thanks .btn { margin-top: 28px; }
+
+@media (max-width: 860px) {
+  .hero, .split { grid-template-columns: 1fr; gap: 36px; }
+  .hero { padding-block: 40px 56px; }
+  section { padding-block: 52px; }
+  .features, .two, .form .pair { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .ledger .row { display: grid; gap: 2px; }
+  .ledger .row .lead { display: none; }
+}
+@media (max-width: 420px) {
+  .inputs { grid-template-columns: 1fr; }
+  .steps li { grid-template-columns: 34px 1fr; }
 }
