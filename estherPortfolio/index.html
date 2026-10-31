@@ -37,6 +37,7 @@
     <header class="top">
       <div class="brand">Esther Yekini<span>Software for charities, built in Manchester</span></div>
       <nav aria-label="Main">
+        <a href="#try">Try it</a>
         <a href="#proof">Proof</a>
         <a href="#how">How it works</a>
         <a href="#questions">Questions</a>
@@ -54,7 +55,7 @@
             yours forever.</p>
           <div class="actions">
             <a class="btn" href="#contact">Tell me what you pay for</a>
-            <a href="https://payment-requests-demo.netlify.app/admin" target="_blank" rel="noopener">Try the live demo</a>
+            <a href="#try">Try your version</a>
           </div>
         </div>
 
@@ -95,6 +96,84 @@
           <p class="slip-foot">After that, every month is money back in the charity.</p>
         </div>
       </div>
+
+      <!-- Try your version. Pick a tool, play with a working mini version, tick what you use.
+           Everything inside the app frame is demo data. Build prices are never shown. -->
+      <section id="try">
+        <div class="try-head">
+          <h2>Try your version</h2>
+          <p class="intro">Pick a tool your charity pays for. Have a play with the version I'd build you, then tick
+            the parts your team actually uses.</p>
+        </div>
+
+        <div class="try-step">
+          <p class="step-no fig">1</p>
+          <div class="step-body">
+            <h3>What do you pay for?</h3>
+            <label class="try-search" for="tool-q">
+              <span class="sr">Search for your tool</span>
+              <input id="tool-q" type="search" autocomplete="off" placeholder="Type a tool, e.g. Jotform, Eventbrite, HubSpot">
+            </label>
+            <div class="chips" role="radiogroup" aria-label="Tools">
+              <button type="button" class="chip" role="radio" aria-checked="true" data-tool="forms">Jotform</button>
+              <button type="button" class="chip" role="radio" aria-checked="false" data-tool="events">Eventbrite</button>
+              <button type="button" class="chip" role="radio" aria-checked="false" data-tool="crm">A supporter CRM</button>
+              <button type="button" class="chip" role="radio" aria-checked="false" data-tool="rota">A volunteer rota app</button>
+            </div>
+            <p class="try-miss" id="tool-miss" hidden>I haven't built a demo for that one yet, but it may well be
+              rebuildable. <a href="#contact" data-prefill-miss>Tell me about it</a>.</p>
+          </div>
+        </div>
+
+        <div class="try-step">
+          <p class="step-no fig">2</p>
+          <div class="step-body">
+            <h3 id="play-title">Your version of Jotform</h3>
+            <p class="try-sub" id="play-sub">Send a payment request, then approve it as the finance team.</p>
+            <div class="app play" id="play" aria-live="polite">
+              <noscript><p class="app-cap">Turn on JavaScript to try the demo, or open the <a
+                    href="https://payment-requests-demo.netlify.app/admin">full live demo</a>.</p></noscript>
+            </div>
+          </div>
+        </div>
+
+        <div class="try-step">
+          <p class="step-no fig">3</p>
+          <div class="step-body try-spec">
+            <div>
+              <h3>Tick what your team actually uses</h3>
+              <p class="try-sub">Most charities use a handful of features and pay for the lot.</p>
+              <ul class="ticks" id="ticks"></ul>
+            </div>
+            <div class="slip spec" aria-label="Your build">
+              <div class="slip-head">
+                <strong>Your build</strong>
+                <span class="fig" id="spec-tool">Replacing Jotform</span>
+              </div>
+              <div class="group">
+                <h3>You'd keep</h3>
+                <div id="spec-keep"></div>
+              </div>
+              <div class="group">
+                <div class="row"><span>Features you'd stop paying for</span><span class="lead"></span><span class="fig" id="spec-drop">0</span></div>
+              </div>
+              <div class="group rent">
+                <h3>What the subscription costs you</h3>
+                <label class="spec-cost" for="spec-m">Your bill a month (£)<input id="spec-m" type="number" inputmode="decimal" min="0" value="150"></label>
+                <div class="row"><span>Each year</span><span class="lead"></span><span class="fig" id="spec-y1">£1,800</span></div>
+                <div class="row"><span>Over 3 years</span><span class="lead"></span><span class="fig" id="spec-y3">£5,400</span></div>
+                <div class="row"><span>Over 5 years</span><span class="lead"></span><span class="fig" id="spec-y5">£9,000</span></div>
+              </div>
+              <div class="tick-box" aria-live="off">
+                <span>Paid to them so far this year</span>
+                <span class="fig" id="spec-live">£0.00</span>
+              </div>
+              <a class="btn spec-btn" href="#contact" id="spec-send">Send me this spec</a>
+              <p class="slip-foot">I'll reply with whether I can build it and roughly what it would cost.</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <!-- Case study. Keep the client anonymous. -->
       <section id="proof">
@@ -292,6 +371,230 @@
       }
       ['m', 'y', 'b', 'h'].forEach(function (id) { $(id).addEventListener('input', calc); });
       calc();
+    })();
+  </script>
+  <script>
+    // Try your version: tool picker, working mini versions with demo data, and the "Your build" spec.
+    (function () {
+      var $ = function (id) { return document.getElementById(id); };
+      var esc = function (t) { return String(t).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+      var gbp = function (n, dp) { return '£' + Number(n).toLocaleString('en-GB', { minimumFractionDigits: dp || 0, maximumFractionDigits: dp || 0 }); };
+
+      var TOOLS = {
+        forms: {
+          name: 'Jotform', title: 'Your version of Jotform',
+          sub: 'Send a payment request, then approve it as the finance team.',
+          aliases: ['jotform', 'typeform', 'google forms', 'microsoft forms', 'cognito', 'formstack', 'wufoo', 'paperform', 'form'],
+          features: [['Online forms with your branding', 1], ['Approvals with more than one sign-off', 1], ['File uploads and receipts', 1], ['E-signatures', 1], ['Email alerts to the right person', 1], ['PDF export', 1], ['Conditional logic', 0], ['Payment collection', 0], ['Hundreds of app integrations', 0], ['Template gallery', 0], ['AI form builder', 0], ['Kiosk mode', 0]]
+        },
+        events: {
+          name: 'Eventbrite', title: 'Your version of Eventbrite',
+          sub: 'Book places on the quiz night and watch the guest list fill up.',
+          aliases: ['eventbrite', 'ticket tailor', 'tickettailor', 'tito', 'universe', 'event', 'ticket', 'booking'],
+          features: [['Event page with your branding', 1], ['Booking with a place limit', 1], ['Guest list and check-in', 1], ['Confirmation emails', 1], ['Waiting list', 1], ['Discount codes', 0], ['Seating plans', 0], ['Ads and promotion tools', 0], ['Mobile organiser app', 0], ['Analytics dashboards', 0], ['Multi-currency', 0]]
+        },
+        crm: {
+          name: 'a supporter CRM', title: 'Your version of a supporter CRM',
+          sub: 'Search your supporters, filter by tag, open a record and add a note.',
+          aliases: ['salesforce', 'hubspot', 'beacon', 'donorfy', 'civicrm', 'raisers edge', "raiser's edge", 'blackbaud', 'dynamics', 'zoho', 'crm', 'donor', 'supporter'],
+          features: [['Supporter records', 1], ['Tags and segments', 1], ['Donation history', 1], ['Notes and activity timeline', 1], ['Gift Aid declaration flags', 1], ['Exports for mailings', 1], ['Email campaigns', 0], ['Sales pipelines', 0], ['Workflow automation builder', 0], ['Custom report builder', 0], ['App marketplace', 0], ['AI assistant', 0]]
+        },
+        rota: {
+          name: 'a volunteer rota app', title: 'Your version of a volunteer rota app',
+          sub: 'Put your name in, then tap an empty shift to sign up.',
+          aliases: ['rotacloud', 'rosterfy', 'deputy', 'signupgenius', 'sign up genius', 'better impact', 'when i work', 'assemble', 'volunteer', 'rota', 'shift'],
+          features: [['Shift sign-up by link', 1], ['Weekly rota view', 1], ['Reminder emails', 1], ['Swap requests', 1], ['Volunteer hours log', 1], ['Payroll integration', 0], ['Holiday management', 0], ['GPS clock-in', 0], ['Demand forecasting', 0], ['Team chat', 0]]
+        }
+      };
+
+      // Demo data. Invented names and figures only.
+      var forms = { next: 48212, rows: [
+        { ref: 'PR-48211', branch: 'Lagos', what: 'Youth camp coach hire', amt: 1150, ok: 1 },
+        { ref: 'PR-48210', branch: 'Dublin', what: 'Easter service printing', amt: 96.4, ok: 0 } ] };
+      var events = { cap: 60, guests: [['Priya S.', 2], ['Tom W.', 4], ['Grace A.', 2]], booked: 47 };
+      var crm = { tag: 'All', q: '', open: null, people: [
+        { n: 'Adaeze Okafor', t: ['Donor'], last: 'Gave £25 in October', notes: ['Monthly donor since 2022'] },
+        { n: 'Ben Hartley', t: ['Volunteer'], last: 'Food bank shift, Saturday', notes: ['Prefers mornings'] },
+        { n: 'Carys Lloyd', t: ['Trustee', 'Donor'], last: 'Board meeting, 4 Nov', notes: ['Finance committee chair'] },
+        { n: 'Daniel Mensah', t: ['Donor'], last: 'Gave £100 at the gala', notes: ['Gift Aid declared'] },
+        { n: 'Ellie Ward', t: ['Volunteer', 'Donor'], last: 'Marathon fundraiser', notes: ['Raised £640 in April'] },
+        { n: 'Farah Hussain', t: ['Volunteer'], last: 'Youth club, Tuesdays', notes: ['DBS checked'] } ] };
+      var DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      var rota = { me: 'You', slots: {} };
+      [['Mon-am', 'Ben'], ['Mon-pm', 'Farah'], ['Tue-am', 'Ellie'], ['Wed-pm', 'Ben'], ['Thu-am', 'Grace'], ['Fri-pm', 'Farah'], ['Sat-am', 'Ellie'], ['Sat-pm', 'Tom']]
+        .forEach(function (p) { rota.slots[p[0]] = p[1]; });
+
+      var ticks = {};
+      Object.keys(TOOLS).forEach(function (k) { ticks[k] = TOOLS[k].features.map(function (f) { return !!f[1]; }); });
+      var current = 'forms';
+      var play = $('play');
+
+      function bar(title, side) { return '<div class="app-bar"><b>' + title + '</b><span>' + side + '</span></div>'; }
+
+      var render = {
+        forms: function () {
+          var rows = forms.rows.map(function (r, i) {
+            var st = r.ok >= 2 ? '<span class="pill ok">Approved</span>'
+              : '<button type="button" class="mini-btn" data-approve="' + i + '">Approve</button> <span class="pill wait">' + r.ok + ' of 2 approvals</span>';
+            return '<tr><td class="fig">' + r.ref + '</td><td>' + esc(r.branch) + '</td><td>' + esc(r.what) + '</td><td class="fig num">' + gbp(r.amt, 2) + '</td><td>' + st + '</td></tr>';
+          }).join('');
+          return bar('Payment requests', 'Demo data') +
+            '<div class="play-split"><form class="mini-form" id="f-req">' +
+            '<label>Branch<select name="branch"><option>Glasgow</option><option>Leeds</option><option>Lagos</option><option>Dublin</option></select></label>' +
+            '<label>What is it for?<input name="what" required placeholder="e.g. Hall hire, December"></label>' +
+            '<label>Amount (£)<input name="amt" type="number" min="1" step="0.01" required placeholder="250"></label>' +
+            '<button class="btn mini-submit" type="submit">Send request</button></form>' +
+            '<div class="app-scroll"><table class="reqs"><tr class="th"><td>Ref</td><td>Branch</td><td>For</td><td class="num">Amount</td><td>Status</td></tr>' + rows + '</table></div></div>' +
+            '<div class="app-cap">Each approval is logged with who and when. <a href="https://payment-requests-demo.netlify.app/admin" target="_blank" rel="noopener">Open the full live demo</a></div>';
+        },
+        events: function () {
+          var left = events.cap - events.booked;
+          var list = events.guests.map(function (g) { return '<li><span>' + esc(g[0]) + '</span><span class="fig">' + g[1] + ' place' + (g[1] > 1 ? 's' : '') + '</span></li>'; }).join('');
+          return bar('Quiz night fundraiser', 'Fri 21 Nov, 7pm, St Mary\'s Hall') +
+            '<div class="play-split"><form class="mini-form" id="f-book">' +
+            '<p class="seats"><span class="fig">' + left + '</span> of ' + events.cap + ' places left</p>' +
+            '<div class="meter"><span style="width:' + Math.round(events.booked / events.cap * 100) + '%"></span></div>' +
+            '<label>Your name<input name="who" required placeholder="e.g. Sam Patel"></label>' +
+            '<label>Places<select name="n"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></label>' +
+            '<button class="btn mini-submit" type="submit"' + (left < 1 ? ' disabled' : '') + '>' + (left < 1 ? 'Fully booked' : 'Book places') + '</button>' +
+            '<p class="mini-msg" id="book-msg"></p></form>' +
+            '<div><p class="mini-h">Latest bookings</p><ul class="guests">' + list + '</ul></div></div>' +
+            '<div class="app-cap">No booking fees added to your guests\' tickets.</div>';
+        },
+        crm: function () {
+          var q = crm.q.toLowerCase();
+          var shown = crm.people.filter(function (p) { return (crm.tag === 'All' || p.t.indexOf(crm.tag) > -1) && (!q || p.n.toLowerCase().indexOf(q) > -1); });
+          var tags = ['All', 'Donor', 'Volunteer', 'Trustee'].map(function (t) { return '<button type="button" class="mini-tag' + (t === crm.tag ? ' on' : '') + '" data-tag="' + t + '">' + t + '</button>'; }).join('');
+          var list = shown.map(function (p) { var i = crm.people.indexOf(p); return '<li><button type="button" class="person' + (crm.open === i ? ' on' : '') + '" data-open="' + i + '"><b>' + esc(p.n) + '</b><span>' + p.t.join(', ') + ' · ' + esc(p.last) + '</span></button></li>'; }).join('') || '<li class="none">No one matches.</li>';
+          var d = crm.open != null ? crm.people[crm.open] : null;
+          var detail = d ? '<p class="mini-h">' + esc(d.n) + '</p><p class="tagline">' + d.t.join(', ') + '</p><ul class="timeline">' + d.notes.slice().reverse().map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('') + '</ul>' +
+            '<form class="note-form" id="f-note"><input name="note" required placeholder="Add a note"><button class="mini-btn" type="submit">Add</button></form>'
+            : '<p class="mini-empty">Open a supporter to see their record.</p>';
+          return bar('Supporters', crm.people.length + ' records, demo data') +
+            '<div class="crm-tools"><input id="crm-q" type="search" placeholder="Search by name" value="' + esc(crm.q) + '" aria-label="Search supporters"><div class="mini-tags">' + tags + '</div></div>' +
+            '<div class="play-split"><ul class="people">' + list + '</ul><div class="detail">' + detail + '</div></div>' +
+            '<div class="app-cap">Your data lives in your charity\'s own database, not a vendor\'s.</div>';
+        },
+        rota: function () {
+          var filled = 0;
+          var rows = ['am', 'pm'].map(function (part) {
+            return '<tr><td class="part">' + (part === 'am' ? 'Morning' : 'Afternoon') + '</td>' + DAYS.map(function (d) {
+              var k = d + '-' + part, who = rota.slots[k];
+              if (who) filled++;
+              if (who && who === rota.me) return '<td><button type="button" class="shift mine" data-slot="' + k + '" title="Tap to drop this shift">' + esc(who) + '</button></td>';
+              if (who) return '<td><span class="shift taken">' + esc(who) + '</span></td>';
+              return '<td><button type="button" class="shift open" data-slot="' + k + '">Sign up</button></td>';
+            }).join('') + '</tr>';
+          }).join('');
+          return bar('Food bank rota', 'Week of 17 Nov, demo data') +
+            '<div class="rota-top"><label>Your name<input id="rota-me" value="' + esc(rota.me) + '" maxlength="14"></label><p><span class="fig">' + filled + '</span> of 12 shifts filled</p></div>' +
+            '<div class="app-scroll"><table class="rota"><tr class="th"><td></td>' + DAYS.map(function (d) { return '<td>' + d + '</td>'; }).join('') + '</tr>' + rows + '</table></div>' +
+            '<div class="app-cap">Volunteers get a reminder email the day before.</div>';
+        }
+      };
+
+      function draw() { play.innerHTML = render[current](); wire(); }
+
+      function wire() {
+        var f;
+        if ((f = $('f-req'))) f.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var d = new FormData(e.target);
+          forms.rows.unshift({ ref: 'PR-' + forms.next++, branch: d.get('branch'), what: d.get('what'), amt: parseFloat(d.get('amt')) || 0, ok: 0 });
+          draw();
+        });
+        play.querySelectorAll('[data-approve]').forEach(function (b) { b.addEventListener('click', function () { forms.rows[+b.dataset.approve].ok++; draw(); }); });
+        if ((f = $('f-book'))) f.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var d = new FormData(e.target), n = +d.get('n'), left = events.cap - events.booked;
+          if (n > left) { $('book-msg').textContent = 'Only ' + left + ' left. The waiting list would catch the rest.'; return; }
+          events.booked += n; events.guests.unshift([d.get('who'), n]); events.guests = events.guests.slice(0, 5);
+          draw();
+          $('book-msg').textContent = 'Booked. A confirmation email would go out now.';
+        });
+        var q = $('crm-q');
+        if (q) q.addEventListener('input', function () { crm.q = q.value; var pos = q.selectionStart; draw(); var n = $('crm-q'); n.focus(); n.setSelectionRange(pos, pos); });
+        play.querySelectorAll('[data-tag]').forEach(function (b) { b.addEventListener('click', function () { crm.tag = b.dataset.tag; draw(); }); });
+        play.querySelectorAll('[data-open]').forEach(function (b) { b.addEventListener('click', function () { crm.open = +b.dataset.open; draw(); }); });
+        if ((f = $('f-note'))) f.addEventListener('submit', function (e) {
+          e.preventDefault();
+          crm.people[crm.open].notes.push(new FormData(e.target).get('note') + ' (just now)');
+          draw();
+        });
+        var me = $('rota-me');
+        if (me) me.addEventListener('change', function () {
+          var old = rota.me, nu = me.value.trim() || 'You';
+          Object.keys(rota.slots).forEach(function (k) { if (rota.slots[k] === old) rota.slots[k] = nu; });
+          rota.me = nu; draw();
+        });
+        play.querySelectorAll('[data-slot]').forEach(function (b) {
+          b.addEventListener('click', function () {
+            var k = b.dataset.slot;
+            if (rota.slots[k] === rota.me) delete rota.slots[k]; else rota.slots[k] = rota.me;
+            draw();
+          });
+        });
+      }
+
+      // Step 3: what you use, and what it costs.
+      function drawTicks() {
+        var t = TOOLS[current];
+        $('ticks').innerHTML = t.features.map(function (f, i) {
+          return '<li><label><input type="checkbox" data-tick="' + i + '"' + (ticks[current][i] ? ' checked' : '') + '> ' + f[0] + '</label></li>';
+        }).join('');
+        $('ticks').querySelectorAll('[data-tick]').forEach(function (c) {
+          c.addEventListener('change', function () { ticks[current][+c.dataset.tick] = c.checked; drawSpec(); });
+        });
+        drawSpec();
+      }
+      function drawSpec() {
+        var t = TOOLS[current], used = [], dropped = 0;
+        t.features.forEach(function (f, i) { if (ticks[current][i]) used.push(f[0]); else dropped++; });
+        $('spec-tool').textContent = 'Replacing ' + t.name;
+        $('spec-keep').innerHTML = used.length ? used.map(function (u) { return '<div class="row keepline"><span>' + u + '</span></div>'; }).join('') : '<p class="mini-empty">Tick the features you use.</p>';
+        $('spec-drop').textContent = dropped;
+        var m = Math.max(0, parseFloat($('spec-m').value) || 0);
+        $('spec-y1').textContent = gbp(m * 12);
+        $('spec-y3').textContent = gbp(m * 36);
+        $('spec-y5').textContent = gbp(m * 60);
+      }
+      $('spec-m').addEventListener('input', drawSpec);
+
+      // A meter that keeps counting what the subscription has cost since 1 January, while you read.
+      var jan1 = new Date(new Date().getFullYear(), 0, 1).getTime();
+      setInterval(function () {
+        var m = Math.max(0, parseFloat($('spec-m').value) || 0);
+        var perMs = (m * 12) / (365.25 * 24 * 3600 * 1000);
+        $('spec-live').textContent = gbp(perMs * (Date.now() - jan1), 4);
+      }, 100);
+
+      $('spec-send').addEventListener('click', function () {
+        var t = TOOLS[current], used = t.features.filter(function (f, i) { return ticks[current][i]; }).map(function (f) { return f[0]; });
+        $('f-tool').value = t.name.replace(/^a /, '');
+        $('f-cost').value = $('spec-m').value;
+        $('f-use').value = 'The parts we actually use:\n- ' + used.join('\n- ');
+      });
+
+      // Step 1: picking and searching.
+      var chips = document.querySelectorAll('.chip');
+      function pick(k) {
+        current = k;
+        chips.forEach(function (c) { c.setAttribute('aria-checked', c.dataset.tool === k ? 'true' : 'false'); });
+        $('play-title').textContent = TOOLS[k].title;
+        $('play-sub').textContent = TOOLS[k].sub;
+        $('tool-miss').hidden = true;
+        draw(); drawTicks();
+      }
+      chips.forEach(function (c) { c.addEventListener('click', function () { pick(c.dataset.tool); }); });
+      $('tool-q').addEventListener('input', function (e) {
+        var q = e.target.value.trim().toLowerCase();
+        if (q.length < 2) { $('tool-miss').hidden = true; return; }
+        var hit = Object.keys(TOOLS).filter(function (k) { return TOOLS[k].aliases.some(function (a) { return a.indexOf(q) === 0 || q.indexOf(a) === 0; }); })[0];
+        if (hit) { if (hit !== current) pick(hit); } else { $('tool-miss').hidden = false; }
+      });
+      document.querySelector('[data-prefill-miss]').addEventListener('click', function () { $('f-tool').value = $('tool-q').value; });
+
+      pick('forms');
     })();
   </script>
 </body>
